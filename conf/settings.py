@@ -21,7 +21,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Configuración del dominio
-BASE_DOMAIN = 'https://yourapp.onrender.com'  # Reemplaza con tu dominio de producción en Render
+BASE_DOMAIN = os.environ.get('BASE_DOMAIN', 'http://localhost:8000')  # Reemplaza con tu dominio de producción en Render
 
 # Seguridad: Mantén la clave secreta en producción secreta
 SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = False
 
 # Permitir solo tu dominio o el de Render
-ALLOWED_HOSTS = ['yourapp.onrender.com', 'www.yourapp.onrender.com']
+ALLOWED_HOSTS = [os.environ.get('BASE_DOMAIN', 'localhost')]
 
 # Application definition
 INSTALLED_APPS = [
