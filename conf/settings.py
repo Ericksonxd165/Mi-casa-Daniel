@@ -27,7 +27,7 @@ BASE_DOMAIN = os.environ.get('BASE_DOMAIN', 'http://localhost:8000')  # Reemplaz
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # No ejecutar con debug en producción
-DEBUG = False
+DEBUG = True
 
 # Permitir solo tu dominio o el de Render
 ALLOWED_HOSTS = [os.environ.get('BASE_DOMAIN', 'localhost')]
