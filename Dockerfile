@@ -20,14 +20,21 @@ RUN python -m pip install -r requirements.txt
 
 # Crea un usuario no root para ejecutar la aplicación (esto es opcional pero recomendado por razones de seguridad)
 RUN useradd -m myuser
-USER myuser
+
+# Cambia a root temporalmente para ejecutar el comando chmod
+USER root
 
 # Copia todo el código fuente al contenedor
 COPY . /china-prototipo/
 
 # Copia los archivos de media
 COPY media /china-prototipo/media
+
+# Cambia los permisos de los archivos de media
 RUN chmod -R 755 /china-prototipo/media
+
+# Cambia de nuevo al usuario no root
+USER myuser
 
 # Exponer el puerto 8000
 EXPOSE 8000
