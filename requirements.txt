@@ -11,4 +11,4 @@ Pillow # Si estás trabajando con imágenes
 
 # """En el caso de necesitar asincronismo para mensajes"""
 #celery
-
+gunicorn==20.1.0  
