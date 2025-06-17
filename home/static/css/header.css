@@ -1,0 +1,72 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+
+}
+
+
+
+
+
+
+header {
+    position: fixed;
+    display: flex;
+    background-color: #081e5b;
+    height: 120px;
+    width: 100%;
+    font-family: 'Poppins';
+    color: white;
+    padding: 10px;
+    z-index: 1000; /* Asegúrate de que esté por encima del contenido */
+    overflow: hidden !important; 
+}
+
+
+
+
+.logo{
+    margin-left: 100px;
+
+}
+
+.site-placer{
+   
+    width: 100%;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    color: white !important;
+    font-size: 1em;
+   
+}
+
+@media screen and (max-width: 600px){
+
+.logo{
+    font-size: x-small;
+    margin-left: 2px;
+    width: 300px;
+}
+
+header{
+    height: 85px;
+   
+}
+
+.site-placer{
+    display: block;
+    position: relative;
+    top: 20%;
+    left: 10%;
+    font-size: smaller;
+    
+}
+ }

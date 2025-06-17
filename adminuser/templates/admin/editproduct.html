@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="main-banner" style="align-items: center;">
+  <div class="container-form">
+    <div class="card-form cart">
+      <h1 class="title">Edit product</h1>
+      <div class="steps">
+        <div class="step">
+          <form class="form" action=" ">
+          <div>
+
+            <span>Information</span>
+            <div class="field-info">
+ 
+              <label for="Name">Product Name</label>
+              <input type="text-s" name="" class="input_field" placeholder="Example: Eco-friendly Tea cup"  id="">
+  
+            </div>
+            <div class="field-info">
+              <label for="Name">Product Description</label>
+              <input type="text-s" name="" class="input_field description"  placeholder="Describe the product within 200 characters" id="">
+            </div>
+            <div class="field-info">
+              <label for="Name">Price</label>
+              <input type="number" name="" class="price" placeholder="00.00$" step=".01" min="0" id="">
+            </div>
+            
+
+          </div>
+          <hr>
+          <div>
+
+  <span>Features</span>
+<div class=>
+
+<div class="features">
+
+
+
+<div class="field">
+  <label for="Category">Category: </label>    
+<select name="" aria-placeholder=""  class="selector" id="">
+<option value="value1" selected>-Select a Category-</option>
+<option value="value2">Technology and Electronics</option>
+<option value="value3">Home Appliances</option>
+<option value="value4">Fashion and Accessories</option>
+<option value="value7">Home and Decoration</option>
+<option value="value8">Sports and Outdoor</option>
+<option value="value9">Toys and Games</option>
+<option value="value10">Health and Beauty</option>
+<option value="value11">Automotive and Tools</option>
+<option value="value12">Food and Beverages</option>
+<option value="value13">Stationery and Office</option>
+<option value="value14">Pets and Accessories</option>
+<option value="value15">Entertainment and Culture</option>
+<option value="value16">Industry and Business</option>
+<option value="value17">Travel and Luggage</option>
+<option value="value18">Home Electronics</option>
+</select>
+</div>
+
+<div class="field">
+  <label for="Providerr">Provider: </label>
+<select name="" id="" class="selector" >
+<option value="">- Select a provider -</option>
+<option value="">Provider 1</option>
+<option value="">Provider 2</option>
+<option value="">Provider 3</option>
+
+</select>
+</div>
+
+
+</div>
+</div> 
+
+
+<div class="f-containers">
+
+<div class="field">
+  <label for="Size">Size</label>
+  <input type="number" placeholder="20cm" class="input_field" name="" id="">
+</div>
+
+<div class="field">
+  <label for="Size">weight
+  </label>
+  <input type="number" placeholder="20kg" class="input_field" name="" id="">
+</div>
+
+<div class="field">
+  <label for="Size">Stock</label>
+  <input type="number" placeholder="20"  class="input_field" name="" id="">
+</div>
+  
+</div>
+<br>
+<div class="field">
+
+  <label for="color">Colors:</label>
+  <Input type="color" name="" id="">
+  
+  
+   </div>
+<div class="field"></div>
+<label for="Images">Images:</label>
+<label class="custum-file-upload" for="file">
+  <div class="icon">
+    <i class="fas fa-cloud-upload-alt"></i>
+  </div>
+  <div class="text-s">
+     <span>Click to change image</span>
+     </div>
+     <input type="file" id="file">
+  </label>
+  
+ </div>
+
+
+          </div>  
+          <hr>
+          <div class="promo">
+            <div class=""> </div>
+
+    
+
+            </form>
+          </div>
+
+        
+        </form></div>
+      </div>
+
+    <div class="card-form checkout">
+      <div class="footer">
+        <label class="price  checker">Edit Product </label>
+          <button class="checkout-btn">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

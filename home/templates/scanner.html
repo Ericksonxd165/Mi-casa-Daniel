@@ -1,0 +1,92 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/header.css' %}">  <!-- estilos del header -->
+    <link rel="stylesheet" href="{% static '/css/scanner.css' %}"><!-- estilos del componente de home-->
+    <link rel="stylesheet" href="{% static '/css/menu.css' %}"> <!-- estilos del menu-->
+  
+
+
+     <!--CDN de iconos-->
+     <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/js/all.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css"> 
+
+    <title>Corpoasia - Scann a QR</title>
+</head>
+<body>
+
+    <header>
+        <a >
+            <div class="logo">
+                <h1>
+                    <i>CORPOASIA</i><br><b>INVESTMENTS</b>
+                  </h1>
+            </div>
+        </a>
+       
+    
+        <div class="site-placer">
+            <h1><i class="fa-solid fa-qrcode"></i> Scanner</h1>
+          </div>
+    
+       </header>
+
+
+
+       <div class="Container-scanner">
+        <div class="Scan">
+            <!-- Botón para activar/desactivar el escáner -->
+            <button id="toggleScannerBtn" class="BTN-Scan"  role="button">
+                <span id="text-scan">TURN ON</span>
+            </button>
+            
+            <!-- Cuadro con transición suave para escanear -->
+            <div class="box-scan" ">
+                <div class="message">
+                    <h1 class="h1">Turn on the Scanner</h1>
+                </div>
+                <video id="videoElement" autoplay playsinline muted></video>
+            </div>
+    
+    
+            <a class="BTN-normal" href="cart.html"><i class="fa-solid fa-cart-shopping"></i>  Cart</button></a>  
+           <a class="BTN-normal" href="catalog.html"><i class="fa-solid fa-book-open"></i>  Catalog</button></a>
+        </div>         
+    </div>
+    
+        </div>
+
+   
+        
+        <div id="page" class="site">
+            <div class="container">
+                <nav>
+                    <input type="checkbox" id="link" hidden>
+                    <label for="link" class="link">
+                        <i class="menu fa-solid fa-bars-staggered"></i>
+                        <i class="close fa-solid fa-xmark"></i>
+                    </label>
+        
+                    <!-- Overlay oscuro -->
+                    <div class="overlay"></div>
+        
+                    <ul class="submenu">
+                        <li><a class="h-link" href="scanner.html"><span>ScanQR</span> <i class="fa-solid fa-qrcode i-tag"></i></a></li>
+                        <li><a class="h-link" href="catalog.html"><span>Catalog</span> <i class="fa-solid fa-book-open i-tag"></i></a></li>
+                        <li><a class="h-link" href="home.html"><span>Home</span> <i class="fa-solid fa-house i-tag"></i></a></li>
+                        <li><a class="h-link" href="cart.html"><span>Cart</span> <i class="fa-solid fa-cart-shopping i-tag"></i></a></li>
+                        <li><a class="h-link" href="account.html"><span>Account</span> <i class="fa-solid fa-user i-tag"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+
+
+.searchbar-container {
+    position: fixed; /* Cambia sticky a fixed */
+    top: 125px; /* Ajusta para que esté debajo del header */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 600px; /* Ancho máximo para pantallas grandes */
+    margin: 0 auto; /* Centra la barra de búsqueda */
+    padding: 8px; /* Espaciado superior e inferior */
+    z-index: 999; /* Asegúrate de que esté por encima del contenido */
+    background-color: #081e5b; /* Fondo blanco para que no se mezcle con el contenido */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+    left: 30%;
+    border-radius: 12px;
+    transition: 0.5s;
+}
+
+.searchbar-container:hover {    
+background-color: #75baec;
+scale: 1.05;
+}
+
+  .InputContainer {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.075);
+    width: 100%;
+  }
+  
+  .input {
+    width: 500px;
+    border: none;
+    outline: none;
+    font-size: 0.9em;
+    caret-color: rgb(255, 81, 0);
+  }
+  
+  .labelforsearch {
+    cursor: text;
+  
+  }
+  
+  .searchIcon {
+    width: 4px;
+  }
+  
+  .border {
+    height: 40%;
+    width: 1.3px;
+    background-color: rgb(223, 223, 223);
+  }
+  
+  .micIcon {
+    width: 12px;
+  }
+  
+  .micButton {
+  
+    border: none;
+    background-color: transparent;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+    transition-duration: .3s;
+    border-radius: 50%;
+  }
+  
+  
+  .searchIcon path {
+    fill: rgb(114, 114, 114);
+  }
+  
+  .micIcon path {
+    fill: rgb(255, 81, 0);
+  }
+  
+  .micButton:hover {
+    background-color: #7ddec8;
+    transition-duration: .3s;
+  }
+  
+    /* Ajustes responsivos para pantallas más pequeñas */
+    @media (max-width: 576px) {
+        .searchbar-container {
+            width: 80% !important; /* Reduce el ancho en pantallas pequeñas */
+            top: 90px; 
+            left: 40px;
+        }
+    }
+
+    .invisible{display: none;}

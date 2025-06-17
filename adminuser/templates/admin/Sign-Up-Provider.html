@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../static/css/Forms.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+        <title>Sign Up.</title>
+        
+    </head>
+
+    <body>
+
+        <div class="Container">
+
+            <form method="post" class="Form_Box" novalidate autocomplete="off">
+                {% csrf_token %}
+
+                <div class="Form-Header">
+                    <span>Provider Registration</span>
+                </div>
+
+                <div class="Input_Box">
+                    <input type="number" id="DNI" name="DNI" class="Input-Field" required>
+                    <label for="DNI" class="label">DNI</label>
+                    <i class="bx bx-id-card Icon"></i>
+                </div>
+
+                <div class="Input_Box">
+                    <input type="number" id="RIF" name="RIF" class="Input-Field" required>
+                    <label for="RIF" class="label">RIF</label>
+                    <i class="bx bx-file Icon"></i>
+                </div>
+
+                <div class="Input_Box">
+                    <input type="text" id="Name" name="Name" class="Input-Field" required>
+                    <label for="Name" class="label">Name</label>
+                    <i class="bx bx-user-check Icon"></i>
+                </div>
+
+                <div class="Input_Box">
+                    <input type="text" id="Last_Name" name="Last_Name" class="Input-Field" required>
+                    <label for="Last-Name" class="label">Last name</label>
+                    <i class="bx bx-user-pin Icon"></i>
+                </div>
+
+                <div class="Input_Box">
+                    <input type="text" id="Country" name="Country" class="Input-Field" required>
+                    <label for="Country" class="label">Country</label>
+                    <i class="bx bx-globe Icon"></i>
+                </div>
+
+                <div class="Input_Box">
+                    <input type="text" id="City" name="City" class="Input-Field" required>
+                    <label for="City" class="label">City</label>
+                    <i class="bx bx-buildings Icon"></i>
+                </div>
+
+                <div class="Input_Box">
+                    <input type="email" id="Email" name="Email" class="Input-Field" required>
+                    <label for="Email" class="label">Email</label>
+                    <i class="bx bx-envelope Icon"></i>
+                </div>
+
+                <div class="Input_Box">
+                    <input type="number" id="Phone_Number" name="Phone_Number" class="Input-Field" required>
+                    <label for="Phone-Number" class="label">Phone Number</label>
+                    <i class="bx bx-phone Icon"></i>
+                </div>
+
+                <div class="Input_Box">
+                    <input type="text" id="Address" name="Address" class="Input-Field" required>
+                    <label for="Address" class="label">Address</label>
+                    <i class="bx bx-map Icon"></i>
+                </div>
+
+                <div class="Input_Box">
+                    <select id="Role" name="Role" class="Input-Field" required>
+                        <option value="provider">Proveedor</option>
+                    </select>
+                    <label for="Role" class="label">Role</label>
+                    <i class="bx bx-user Icon"></i>
+                </div>
+                
+
+                <div class="Input_Box">
+                    <input type="text" id="User" name="User" class="Input-Field" required>
+                    <label for="User" class="label">User</label>
+                    <i class="bx bx-user Icon"></i>
+                </div>
+
+                <div class="Input_Box">
+                    <input type="password" id="Passsword" name="Password" class="Input-Field" required>
+                    <label for="Passsword" class="label">Password</label>
+                    <i class="bx bx-lock-alt Icon"></i>
+                </div>
+
+                <div class="Input_Box">
+                    <button type="submit" class="Enter">Register</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </body>
+
+</html>

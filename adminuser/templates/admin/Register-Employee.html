@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+        <link rel="stylesheet" href="../../static/css/Style-Internal-Form.css">
+
+        <title>Register Employee</title>
+    </head>
+
+    <body>
+        
+        <div class="Container">
+
+            <div class="Details">
+
+                <div class="Welcome">
+
+                    <div class="Settings-Container">
+                        <a href="/adminuser/adminpanel" class="Back">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                        <p class="Text">Register Employee</p>
+                        <a href="Settings.html" class="Settings">
+                            <i class="fas fa-cogs"></i>
+                        </a>
+                    </div>
+
+                </div>
+                
+                <div class="form-container">
+                    <form class="form" id="Form-Reg-Emp" novalidate autocomplete="off">
+                        <div class="form-group">
+                            <label for="DNI">DNI</label>
+                            <input type="number" id="DNI" name="DNI" required maxlength="15">
+                        </div>
+                        <div class="form-group">
+                            <label for="First-Name">First Name</label>
+                            <input type="text" id="First-Name" name="First-Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Last-Name">Last Name</label>
+                            <input type="text" id="Last-Name" name="Last-Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Phone-Number">Phone Number</label>
+                            <input type="number" id="Phone-Number" name="Phone-Number" required maxlength="11">
+                        </div>
+                        <div class="form-group">
+                            <label for="Email">Email</label>
+                            <input type="email" id="Email" name="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Address">Address</label>
+                            <input type="text" id="Address" name="Address" required>
+                        </div>
+                        <button type="submit" class="btn-save">Save</button>
+                    </form>
+                </div>
+                                
+                <div class="Navigation">
+                    <label title="home" for="home" class="label">
+                        <input id="home" name="page" type="radio" checked="" />
+                        <i class="fi fi-rr-marketplace-store"></i>
+                    </label>
+                    <label title="cart" for="cart" class="label">
+                        <input id="cart" name="page" type="radio" />
+                        <i class="fi fi-rr-shopping-cart"></i>
+                    </label>
+                    <label title="favorite" for="favorite" class="label">
+                        <input id="favorite" name="page" type="radio" />
+                        <i class="fi fi-rr-heart"></i>
+                    </label>
+                    <label title="notifications" for="notifications" class="label">
+                        <input id="notifications" name="page" type="radio" />
+                        <i class="fi fi-rr-bell-notification-social-media"></i>
+                    </label>
+                </div>
+
+            </div>
+        
+        </div>
+            
+        <dialog id="errorDialog">
+            <p id="errorMessage"></p>
+            <button onclick="document.getElementById('errorDialog').close()">OK</button>
+        </dialog>
+
+        <script>
+            document.getElementById("First-Name").addEventListener("input", function(event) {
+                this.value = this.value.replace(/[^A-Za-z ]/g, '');
+            });
+
+            document.getElementById("Last-Name").addEventListener("input", function(event) {
+                this.value = this.value.replace(/[^A-Za-z ]/g, '');
+            });
+
+            document.getElementById("Form-Reg-Emp").addEventListener("submit", function (event) {
+                const fields = [
+                    { id: "DNI", regex: /^\d+$/, msg: "DNI must contain only numbers." },
+                    { id: "First-Name", regex: /^[A-Za-z ]+$/, msg: "First Name must contain only letters." },
+                    { id: "Last-Name", regex: /^[A-Za-z ]+$/, msg: "Last Name must contain only letters." },
+                    { id: "Phone-Number", regex: /^\d{7,11}$/, msg: "Phone Number must contain between 7 and 11 digits." },
+                    { id: "Email", regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, msg: "Invalid email format." },
+                    { id: "Address", regex: /.+/, msg: "Address cannot be empty." }
+                ];
+
+                let errorDialog = document.getElementById("errorDialog");
+                let errorMessage = document.getElementById("errorMessage");
+
+                for (let field of fields) {
+                    let value = document.getElementById(field.id).value.trim();
+
+                    if (value === "") {
+                        errorMessage.textContent = `${field.id.replace('-', ' ')} cannot be empty.`;
+                        errorDialog.showModal();
+                        document.getElementById(field.id).focus();
+                        event.preventDefault();
+                        return;
+                    }
+
+                    if (!field.regex.test(value)) {
+                        errorMessage.textContent = field.msg;
+                        errorDialog.showModal();
+                        document.getElementById(field.id).focus();
+                        event.preventDefault();
+                        return;
+                    }
+                }
+            });
+        </script>
+
+    </body>
+
+</html>

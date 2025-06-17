@@ -1,0 +1,165 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/js/all.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+
+  <link rel="stylesheet" href="{% static '/css/header.css' %}">  <!-- estilos del header -->
+    <link rel="stylesheet" href="{% static '/css/catalogo.css' %}"><!-- estilos del componente de home-->
+    <link rel="stylesheet" href="{% static '/css/menu-navbar.css' %}"> <!-- estilos del menu-->
+    <link rel="stylesheet" href="{% static '/css/searching-bar.css' %}"> <!-- estilos de la paginacion-->
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+  
+  <title>Corpoasia - Shop</title>
+</head>
+<body>
+  <header>
+    <a >
+        <div class="logo">
+            <h1>
+                <i>CORPOASIA</i>
+              </h1>
+        </div>
+    </a>
+   
+
+
+
+    <div class="site-placer">
+        <h1><i class='fa-solid fa-shop'></i>Shop</h1>
+      </div>
+
+   </header>
+
+
+
+
+
+
+   <div class="catalog">
+    <!-- Header -->
+    
+
+    <!-- Main content -->
+    <main class="main-content">
+      <!-- Title card -->
+      <div class="searchbar-container">
+        <div class="InputContainer">
+          <input type="text" name="text" class="input" id="input" placeholder="Search any product">
+          
+          <button class="micButton labelforsearch" for="input">
+            <i class="fa-solid fa-magnifying-glass"></i>  </button>
+        <div class="border"></div>
+        
+        <button class="micButton"><i class="fa-solid fa-bars"></i>
+        </button>
+        
+        </div>
+      
+       </div> 
+       <br>
+      <!-- catalog grid -->
+      <div class="catalog-grid">
+
+        {% for product in products %}
+          <a href="{{ product.get_absolute_url }}" class="card-link">  <!-- Envuelve todo en un enlace -->
+            <div class="catalog-card">
+              <div class="catalog-image-container">
+                {% with product.get_display_image as display_image %}
+                  {% if display_image %}
+                    <img src="{{ display_image.image.url }}" alt="{{ product.name }}" class="catalog-image">
+                  {% else %}
+                    <img src="{% static 'images/default-product.png' %}" alt="No image available" class="catalog-image">
+                  {% endif %}
+                {% endwith %}
+                
+                <div class="rating-badge">
+                  <span class="rating-number">{{ product.rating|floatformat:1 }}</span>
+                  {% if product.rating > 4.5 %}
+                    <span class="rating-plus">+</span>
+                  {% endif %}
+                </div>
+              </div>
+              
+              <div class="catalog-details">
+                <h3 class="catalog-name">{{ product.name }}</h3>
+                <p class="catalog-type">
+                  {% with product.suppliers.count as supplier_count %}
+                    {% if supplier_count > 0 %}
+                      +{{ supplier_count }} Supplier{% if supplier_count > 1 %}s{% endif %}
+                    {% else %}
+                      No suppliers
+                    {% endif %}
+                  {% endwith %}
+                </p>
+                <p class="catalog-price">
+                  {% if product.min_price > 0 %}
+                    Starting at ${{ product.min_price|floatformat:2 }}
+                  {% else %}
+                    Price not available
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+          </a>  <!-- Cierra el enlace -->
+        {% endfor %}
+        </div>
+        
+      </div>
+    </main>
+  
+  </div>
+
+  <div class="container-pagination">
+    <div class="pagination">
+      <a href="#">&laquo;</a>
+      <a href="#" class="active">1</a>
+      <a href="#" >2</a>
+      <a href="#">3</a>
+      <a href="#">4</a>
+      <a href="#">5</a>
+      <a href="#">6</a>
+      <a href="#">&raquo;</a>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="Navigation">
+
+    <label title="cart" for="cart" class="label">
+        <input id="cart" name="page" type="radio" checked="" />
+        <i class="fi fi-rr-shopping-cart"></i>
+    </label>
+    <label title="store" for="store" class="label">
+        <input id="store" name="page" type="radio" />
+        <i class="fi fi-rr-catalog-magazine"></i>
+        </label>
+    <label title="home" for="home" class="label">
+        <input id="home" name="page" type="radio"  />
+        <i class="fi fi-rr-house-chimney"></i>
+    </label>
+
+    <label title="favorite" for="favorite" class="label">
+        <input id="favorite" name="page" type="radio" />
+        <i class="fi fi-rr-camera-viewfinder"></i>
+    </label>
+    <label title="notifications" for="notifications" class="label">
+        <input id="notifications" name="page" type="radio" />
+        <i class="fi fi-rr-user"></i>
+    </label>
+</div>
+
+
+</body>
+</html>

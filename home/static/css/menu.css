@@ -1,0 +1,350 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+nav{
+    overflow: visible !important;
+    font-family: 'Montserrat';
+}
+
+
+
+*::before::after{
+box-sizing: border-box;
+
+}
+
+ul{
+list-style: none;
+}
+
+a{
+text-decoration: none;
+vertical-align: middle;
+color: inherit;
+}
+
+
+.site{
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100%;
+}
+
+.container{
+max-width: 480px;
+width: 100%;
+padding: 0 2em;
+
+}
+
+nav {
+position: fixed; /* Fija el menú en la pantalla */
+top: 25%;
+ /* Asegura que esté en la parte superior */
+right: 0%; /* Asegura que esté alineado a la derecha */
+z-index: 1000; /* Asegura que esté por encima de otros elementos */
+display: flex;
+justify-content: flex-end;
+max-width: 480px;
+width: 100%;
+height: 500px;
+color: white;
+pointer-events: none; /* Deshabilitar clics */
+
+}
+
+/* Overlay oscuro */
+nav .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.844); /* Fondo oscuro con opacidad */
+    z-index: -2; /* Debajo del menú pero encima del resto */
+    visibility: hidden; /* Oculto por defecto */
+    opacity: 0;
+    transition: visibility 0.5s, opacity 0.5s; /* Transición suave */
+
+    
+}
+
+
+
+/* Mostrar el overlay cuando el menú está abierto */
+nav > input:checked ~ .overlay {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Deshabilitar interacción con los links cuando el menú no está abierto */
+nav ul.submenu li a {
+    pointer-events: none; /* Deshabilitar clics */
+
+}
+
+/* Habilitar interacción con los links cuando el menú está abierto */
+nav > input:checked ~ .submenu li a {
+    pointer-events: auto !important; /* Habilitar clics */
+}
+
+nav > input:checked ~ .link{
+    pointer-events: auto !important; /* Habilitar clics */
+}
+
+/* Deshabilitar interacción con el contenido detrás del overlay */
+nav > input:checked ~ .overlay + #page {
+    pointer-events: none; /* Deshabilitar clics y selección */
+}
+
+/* Deshabilitar interacción con el contenido detrás del overlay */
+nav > input:checked ~ .overlay + #page {
+    pointer-events: none; /* Deshabilitar clics y selección */
+}
+
+/* Asegurar que el overlay y el menú sigan siendo interactivos */
+nav > input:checked ~ .overlay,
+nav > input:checked ~ .submenu {
+    pointer-events: auto; /* Habilitar clics en el overlay y el menú */
+}
+
+.menu{
+    pointer-events: auto;
+    
+}
+
+nav .link{
+width: 40px;
+height: 40px;
+display: flex;
+align-items: center;
+justify-content: center;
+position: absolute;
+top: 50%;
+margin-top: -20px;
+right: 0%;
+cursor: pointer;
+z-index: 99;
+overflow: visible;
+
+}
+
+nav .link::before{
+content: '';
+position: absolute;  
+width: inherit;
+height: inherit;
+background-color:#081e5b;
+border-radius: 50% 0 0 50%;
+transform: scale(2);
+z-index: -2;
+overflow: visible;
+}
+
+nav .link::after{
+content: '';
+position: absolute;
+width:  calc(100% 4px);
+height: calc(100% 4px);
+background-color: #fff;
+border-radius: 50% 0 0 50%;
+transform: scale(2);
+z-index: -1;
+opacity: .5;
+transition: 0.5s;
+}
+
+nav .link:hover::after{
+opacity: .9;
+}
+
+nav .link .close,
+nav input:checked~ label .menu {
+display: none;
+background-color:#081e5b;
+color: #ffff;
+}
+
+nav input:checked ~ label .close{
+display: block;
+}
+
+
+
+/* Menú semicircular */
+nav ul.submenu {
+position: absolute;
+top: 0;
+right: 4em;
+width: 350px;
+height: 500px;
+transform: rotate(90deg);
+visibility: hidden;
+opacity: 0; /* Añade opacidad para la transición */
+transition: visibility 0.5s, opacity 0.5s; /* Transición para visibilidad y opacidad */
+overflow: visible !important;
+}
+
+nav > input:checked ~ ul {
+visibility: visible;
+opacity: 1; /* Hace visible el menú */
+transition: visibility 0.5s, opacity 0.5s; /* Transición para visibilidad y opacidad */
+}
+
+nav > input:checked ~ ul li {
+transform: rotate(calc((-180deg / 6) * var(--item))) translateX(0);
+opacity: 1;
+transition: transform 0.5s, opacity 0.5s; /* Transición para apertura */
+}
+
+nav > input:not(:checked) ~ ul li {
+transform: rotate(90deg) translateX(-50px); /* Reversión de la animación */
+opacity: 0;
+transition: transform 0.5s, opacity 0.5s; /* Transición para cierre */
+}
+.submenu li{
+--item: 1;
+position: absolute;
+width: 175px;
+height: 60px;
+transform: rotate(calc((-180deg/6)*var(--item))) translateX(157lpx);
+transform-origin: right center;
+display: flex;
+align-items: center;
+opacity: 0;
+transition: transform .5s, opacity .5s;
+color: #fff;
+overflow: visible !important;
+}
+
+.submenu li:nth-child(2){
+--item: 2;
+
+}
+.submenu li:nth-child(3){
+--item: 3;
+
+}
+
+.submenu li:nth-child(4){
+--item: 4;
+
+}
+
+.submenu li:nth-child(5){
+--item: 5;
+
+}
+
+.submenu li:nth-child(6){
+--item: 6;
+
+}
+
+.h-link{
+position: relative;
+display: flex;
+align-items: center;
+overflow: visible;
+}
+
+.h-link span{
+    overflow: visible;
+}
+
+.i-tag{
+
+font-size: 10px;
+padding: 10px;
+ height: 30px;
+  width: 30px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+background-color:#fff   ;
+color: #2b40ff;
+border: 2px solid transparent;
+transition: border .3s background-color .3s;
+}
+
+.i-tag:hover{
+background-color: transparent;
+border-color:#2b40ff;
+background-color:white ;
+color:#2b40ff;
+}
+
+
+nav ul li a span{
+position: absolute;
+right: calc(100% + 1em);
+text-align: right;
+font-size: 20px;
+padding: 0 10px;
+
+z-index: -1;
+transform: translateX(50px);
+opacity: 0;
+transition: color .3s, transform .3s .4s, opacity .2s .4s;
+}
+
+nav>input:checked ~ ul li a span{
+transform: translateX(0);
+opacity: 1;
+}
+
+nav ul li a span::before{
+
+content: '';
+position: absolute;
+top: 2px;
+left: 2px;
+width: calc(100% - 4px);
+height: calc(100% - 4px);   
+
+z-index: -1;
+transition: color .3s;
+}
+
+
+nav ul li a:hover span::before{
+background-color: transparent;
+}
+
+nav ul li a:hover span{
+color: #27b7ff;
+
+}
+
+nav ul li:nth-child(1) a i{
+transform: rotate(292deg);
+    background-color: #ff0000;
+}
+
+nav ul li:nth-child(2) a i{
+    transform: rotate(315deg);
+        background-color: #ff0000;
+    }
+
+    nav ul li:nth-child(3) a i{
+        transform: rotate(deg);
+            background-color: #ff0000;
+        }
+        nav ul li:nth-child(4) a i{
+            transform: rotate(22deg);
+                background-color: #ff0000;
+            }
+
+            nav ul li:nth-child(5) a i{
+                transform: rotate(45deg);
+                    background-color: #ff0000;
+                }
+
+                nav ul li:nth-child(6) a i{
+                    transform: rotate(315deg);
+                        background-color: #ff0000;
+                    }
+
+
+
+                    

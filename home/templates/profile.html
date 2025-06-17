@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static '/css/header.css' %}">  <!-- estilos del header -->
+    <link rel="stylesheet" href="{% static '/css/profile.css' %}"><!-- estilos del componente de home-->
+    <link rel="stylesheet" href="{% static '/css/menu.css' %}"> <!-- estilos del menu-->
+  
+
+    <!--CDN de iconos-->
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+
+    <title>CorpoAsia - Account</title>
+</head>
+<body>
+
+  <header>
+    <a >
+        <div class="logo">
+            <h1>
+                <i>CORPOASIA</i><br><b>INVESTMENTS</b>
+              </h1>
+        </div>
+    </a>
+   
+
+    <div class="site-placer">
+        <h1><i class="fa-solid fa-user"></i> Account</h1>
+      </div>
+
+   </header>
+
+
+
+
+    <div class="profile-container">
+
+        <h1 class="profile-title">My Account</h1>
+    
+        <div class="profile-card" id="profileCard">
+          <div class="profile-header">
+            <div class="profile-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="profile-name-container">
+              <h2 class="profile-name" id="userName">Wang Wei</h2>
+              <p class="profile-status">Active Customer</p>
+            </div>
+          </div>
+    
+          <div class="profile-info">
+            <div class="info-section">
+              <h3 class="section-title">Personal Information</h3>
+              <div class="info-item">
+                <span class="info-label">Full Name:</span>
+                <span class="info-value" id="fullName">Wang Wei</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">身份证号码 (ID):</span>
+                <span class="info-value" id="chineseId">110101199001011234</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Birth Date:</span>
+                <span class="info-value" id="birthDate">01/01/1990</span>
+              </div>
+            </div>
+    
+            <div class="info-section">
+              <h3 class="section-title">Contact Information</h3>
+              <div class="info-item">
+                <span class="info-label">Email:</span>
+                <span class="info-value" id="userEmail">wang.wei@example.com</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">PhoneNumber:</span>
+                <span class="info-value" id="userPhone">+86 138 1234 5678</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">WeChat ID:</span>
+                <span class="info-value" id="wechatId">wangwei_1990</span>
+              </div>
+            </div>
+    
+            <div class="info-section">
+              <h3 class="section-title">Shipping Address</h3>
+              <div class="info-item">
+                <span class="info-label">Province:</span>
+                <span class="info-value" id="province">Beijing</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">City:</span>
+                <span class="info-value" id="city">Beijing</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Detailed address:</span>
+                <span class="info-value" id="address">Chaoyang District, Jianguo Road 88, Building 2, Apt 1503</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Postal Code:</span>
+                <span class="info-value" id="postalCode">100022</span>
+              </div>
+            </div>
+          </div>
+    
+          <div class="profile-actions">
+            <button class="btn secondary-btn" id="editProfileBtn">
+              <i class="fas fa-edit"></i> Edit info
+            </button>
+            <button class="btn danger-btn" id="logoutBtn">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
+        </div>
+    
+        <!-- Formulario de edición (inicialmente oculto) -->
+        <div class="edit-profile-form" id="editProfileForm" style="display: none;">
+          <h2 class="form-title">Edit Profile</h2>
+          
+          <div class="form-section">
+            <h3 class="section-title">Personal Info</h3>
+            <div class="form-group">
+              <label for="editFullName">Full Name:</label>
+              <input type="text" id="editFullName" class="form-input">
+            </div>
+            <div class="form-group">
+              <label for="editChineseId">身份证号码 (ID):</label>
+              <input type="text" id="editChineseId" class="form-input">
+            </div>
+            <div class="form-group">
+              <label for="editBirthDate">Birth Date:</label>
+              <input type="date" id="editBirthDate" class="form-input">
+            </div>
+          </div>
+    
+          <div class="form-section">
+            <h3 class="section-title">Contact Information</h3>
+            <div class="form-group">
+              <label for="editEmail">Email:</label>
+              <input type="email" id="editEmail" class="form-input">
+            </div>
+   
+            <div class="form-group">
+              <label for="editWechatId">WeChat ID:</label>
+              <input type="text" id="editWechatId" class="form-input">
+            </div>
+          </div>
+    
+          <div class="form-section">
+            <h3 class="section-title">Shipping Address</h3>
+            <div class="form-group">
+              <label for="editProvince">Province:</label>
+              <input type="text" id="editProvince" class="form-input">
+            </div>
+            <div class="form-group">
+              <label for="editCity">City:</label>
+              <input type="text" id="editCity" class="form-input">
+            </div>
+            <div class="form-group">
+              <label for="editAddress">Detailed <address></address>:</label>
+              <textarea id="editAddress" class="form-textarea"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="editPostalCode">Postal Code:</label>
+              <input type="text" id="editPostalCode" class="form-input">
+            </div>
+          </div>
+    
+          <div class="form-actions">
+            <button class="btn primary-btn" id="saveProfileBtn">Save Changes</button>
+            <button class="btn secondary-btn" id="cancelEditBtn">Cancel</button>
+          </div>
+        </div>
+      </div>
+      <div id="page" class="site">
+        <div class="container">
+            <nav>
+                <input type="checkbox" id="link" hidden>
+                <label for="link" class="link">
+                    <i class="menu fa-solid fa-bars-staggered"></i>
+                    <i class="close fa-solid fa-xmark"></i>
+                </label>
+    
+                <!-- Overlay oscuro -->
+                <div class="overlay"></div>
+    
+                <ul class="submenu">
+                    <li><a class="h-link" href="scanner.html"><span>ScanQR</span> <i class="fa-solid fa-qrcode i-tag"></i></a></li>
+                    <li><a class="h-link" href="catalog.html"><span>Catalog</span> <i class="fa-solid fa-book-open i-tag"></i></a></li>
+                    <li><a class="h-link" href="home.html"><span>Home</span> <i class="fa-solid fa-house i-tag"></i></a></li>
+                    <li><a class="h-link" href="cart.html"><span>Cart</span> <i class="fa-solid fa-cart-shopping i-tag"></i></a></li>
+                    <li><a class="h-link" href="account.html"><span>Account</span> <i class="fa-solid fa-user i-tag"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+</body>
+<script src="{% static '/js/profile.js' %}"></script>
+</html>

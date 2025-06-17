@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/header.css' %}">  <!-- estilos del header -->
+    <link rel="stylesheet" href="{% static '/css/cart.css' %}"><!-- estilos del componente de home-->
+    <link rel="stylesheet" href="{% static '/css/menu.css' %}"> <!-- estilos del menu-->
+
+
+    <!--CDN de iconos-->
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+
+
+    <title>Corpoasia - Home</title>
+</head>
+<body>
+    <header>
+        <a >
+            <div class="logo">
+                <h1>
+                    <i>CORPOASIA</i><br><b>INVESTMENTS</b>
+                  </h1>
+            </div>
+        </a>
+       
+    
+        <div class="site-placer">
+            <h1><i class="fa-solid fa-cart-shopping"></i> Cart</h1>
+          </div>
+    
+       </header>
+
+
+       <div class="cart-container">
+        <div class="navigation-links">
+          <a href="catalog.html" class="back-link">
+
+            <span><i class="fas fa-book-open"></i> See catalog</span>
+          </a>
+          <a href="scanner.html" class="back-link">
+
+            <span><i class="fas fa-arrow-left"></i> Scann a product</span>
+          </a>
+        </div>
+    
+        <h1 class="cart-title">Shopping Cart</h1>
+    
+        <div class="cart-items" id="cartItems">
+          <!-- Los items del carrito se generarán dinámicamente con JavaScript -->
+        </div>
+    
+        <div class="empty-cart" id="emptyCart" style="display: none;">
+          <i class="fas fa-shopping-bag"></i>
+          <h2>Your cart is empty</h2>
+          <p>Add Some products from our catalog</p>
+          <a href="catalog.html" class="btn primary-btn">See Catalog</a>
+          <h2>Or</h2>
+          <p>Scann some products</p>
+          <a href="scanner.html" class="btn primary-btn">See Catalog</a>
+        </div>
+    
+        <div class="order-summary" id="orderSummary">
+          <div class="summary-details">
+            <div>
+              <p class="summary-text">Total (<span id="totalItems">0</span> products):</p>
+              <p class="total-price" id="totalPrice">$0.00</p>
+            </div>
+            <button class="btn primary-btn generate-order-btn">Generate Order</button>
+          </div>
+        </div>
+      </div>
+              
+ 
+
+
+
+
+       <div id="page" class="site">
+        <div class="container">
+            <nav>
+                <input type="checkbox" id="link" hidden>
+                <label for="link" class="link">
+                    <i class="menu fa-solid fa-bars-staggered"></i>
+                    <i class="close fa-solid fa-xmark"></i>
+                </label>
+    
+                <!-- Overlay oscuro -->
+                <div class="overlay"></div>
+    
+                <ul class="submenu">
+                    <li><a class="h-link" href="scanner.html"><span>ScanQR</span> <i class="fa-solid fa-qrcode i-tag"></i></a></li>
+                    <li><a class="h-link" href="catalog.html"><span>Catalog</span> <i class="fa-solid fa-book-open i-tag"></i></a></li>
+                    <li><a class="h-link" href="home.html"><span>Home</span> <i class="fa-solid fa-house i-tag"></i></a></li>
+                    <li><a class="h-link" href="cart.html"><span>Cart</span> <i class="fa-solid fa-cart-shopping i-tag"></i></a></li>
+                    <li><a class="h-link" href="account.html"><span>Account</span> <i class="fa-solid fa-user i-tag"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</body>
+<script src="{% static '/js/cart.js' %}"></script>
+</html>

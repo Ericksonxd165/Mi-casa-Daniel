@@ -1,0 +1,95 @@
+{% extends 'admin/adminbase.html' %}
+
+{% block content %}
+    <!-- Main content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Usuarios</h1>
+        </div>
+        <p>Gestión de usuarios</p>
+        
+        <!-- Botones de acción -->
+        <div class="mb-3">
+            <a href="#" class="btn btn-primary">Agregar Trabajador</a>
+            <a href="/adminuser/signup_provider/" class="btn btn-secondary">Agregar Proveedor</a>
+        </div>
+        
+        <!-- Tabla de usuarios normales -->
+        <h2>Usuarios</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>País</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Postal</th>
+                    <th>Dirección</th>
+                    <th>Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ user.DNI }}</td>
+                    <td>{{ user.Name }}</td>
+                    <td>{{ user.Last_Name }}</td>
+                    <td>{{ user.Country }}</td>
+                    <td>{{ user.Email }}</td>
+                    <td>{{ user.Phone_Number }}</td>
+                    <td>{{ user.Postal }}</td>
+                    <td>{{ user.Address }}</td>
+                    <td>{{ user.User }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="10">No hay usuarios registrados.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Tabla de proveedores -->
+        <h2>Proveedores</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>DNI</th>
+                    <th>RIF</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>País</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Dirección</th>
+                    <th>Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for provider in providers %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ provider.DNI }}</td>
+                    <td>{{ provider.RIF }}</td>
+                    <td>{{ provider.Name }}</td>
+                    <td>{{ provider.Last_Name }}</td>
+                    <td>{{ provider.Country }}</td>
+                    <td>{{ provider.Email }}</td>
+                    <td>{{ provider.Phone_Number }}</td>
+                    <td>{{ provider.Address }}</td>
+                    <td>{{ provider.User }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9">No hay proveedores registrados.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+{% endblock %}

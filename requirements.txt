@@ -1,0 +1,14 @@
+Django~=4.1.0
+psycopg2-binary>=2.8  #En caso de ser necesaria una BD de PostgresSql
+djangorestframework==3.12.4
+qrcode==6.1
+dj_database_url
+django-allauth
+Pillow # Si estás trabajando con imágenes
+#setuptools>=60.0.0
+#poetry
+# Agrega aquí otras dependencias de tu proyecto
+
+# """En el caso de necesitar asincronismo para mensajes"""
+#celery
+

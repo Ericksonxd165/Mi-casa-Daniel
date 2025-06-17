@@ -1,0 +1,366 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
+
+body{
+    background-color: #18378e;
+}
+
+
+.Container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8%;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+.Details {
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.Welcome {
+    background-color: #ffffff;
+    border-radius: 15px;
+    font-weight: 600;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.Settings-Container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.Text {
+    font-size: 1.2em;
+    font-weight: 600;
+    text-align: left;
+    margin-left: 15px;
+}
+
+.Settings {
+    display: flex;
+    padding: 3px 8px;
+    height: 35px;
+    width: 35px;
+    border: none;
+    background: #5e41de33;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.Settings:hover {
+    background: #5e41de4d;
+}
+
+.Settings:hover .svg-icon {
+    animation: spin 2s linear infinite;
+}
+
+.💀 {
+    font-size: 38px;
+    margin-left: auto;
+}
+
+.💀:after {
+    content: attr(data-content);
+}
+
+.💀:hover:after {
+    content: attr(data-hover-content);
+}
+
+.💀:active:after {
+    content: attr(data-active-content);
+}
+
+.Welcome-Header {
+    display: flex;
+    align-items: left;
+    gap: 10px;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 5px;
+    margin-left: 15px;
+}
+
+.Welcome-Header i{
+    display: flex;
+}
+
+.Icon-User {
+    font-size: 25px;
+    color: #ffffff;
+    background-color: #081E5B;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.h1 {
+    color: #000000;
+    font-size: 1.2em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.Scan {
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #4aa5b3 0%, #86e8cb 100%);
+}
+
+.BTN-Scan {
+    position: relative;
+    height: 50px;
+    padding: 0 30px;
+    border: 3px solid #000;
+    background: #ffffff;
+    user-select: none;
+    white-space: nowrap;
+    transition: all .05s linear;
+    align-items: center;
+    width: 93%;
+    overflow: hidden;
+}
+
+.BTN-Scan:before, .BTN-Scan:after {
+    content: "";
+    position: absolute;
+    background: #ffffff;
+    transition: all .2s linear;
+}
+
+.BTN-Scan:before {
+    width: calc(100% + 6px);
+    height: calc(100% - 16px);
+    top: 8px;
+    left: -3px;
+}
+
+.BTN-Scan:after {
+    width: calc(100% - 16px);
+    height: calc(100% + 6px);
+    top: -3px;
+    left: 8px;
+}
+
+.BTN-Scan:hover {
+    cursor: crosshair;
+}
+
+.BTN-Scan:active {
+    transform: scale(0.95);
+}
+
+.BTN-Scan:hover:before {
+    height: calc(100% - 32px);
+    top: 16px;
+}
+
+.BTN-Scan:hover:after {
+    width: calc(100% - 32px);
+    left: 16px;
+}
+
+.BTN-Scan span {
+    font-size: 15px;
+    z-index: 3;
+    position: relative;
+    font-weight: 600;
+}
+
+.Cards {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+    width: 100%;
+    flex-grow: 2;
+    overflow: hidden;
+}
+
+.Cards .Card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 400ms;
+    width: 90%;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.Cards .Red {
+    background-image: linear-gradient(315deg, #f43f5e 0%, #f3a683 74%);
+}
+
+.Cards .Blue {
+    background-image: linear-gradient(315deg, #3b82f6 0%, #9333ea 74%);
+}
+
+.Cards .Green {
+    background-image: linear-gradient(315deg, #259e51 0%, #00ff5e 74%);
+}
+
+.Cards .Card i {
+    font-size: 120px;
+    color: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    z-index: 0;
+}
+
+.Cards .Card:hover {
+    transform: scale(1.1);
+    z-index: 1;
+}
+
+.Cards .Card p.Tip {
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.Cards .Card p.Second-Text {
+    font-size: .7em;
+}
+
+.Cards:hover > .Card:not(:hover) {
+    filter: blur(8px);
+    transform: scale(0.9, 0.9);
+}
+
+.Info {
+    background-color: #ffffff;
+    border-radius: 15px;
+    font-weight: 300;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.Text2 {
+    font-size: 1.2em;
+    font-weight: 600;
+    text-align: center;
+}
+
+.Photo {
+    width: 180px;
+    height: 90px;
+}
+
+.Explore {
+    background-color: #ffffff;
+    border-radius: 15px;
+    font-weight: 600;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.CatalogText {
+    font-size: 1.2em;
+    font-weight: 500;
+    text-align: center;
+}
+
+.Slide {
+    margin: 0;
+    height: auto;
+    background: transparent;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.Slide {
+    letter-spacing: 3px;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-family: "Arial";
+    position: relative;
+    text-transform: uppercase;
+    color: transparent;
+    -webkit-text-stroke: 2px #0dcce9;
+    font-weight: 600;
+}
+
+.hover-text {
+    position: absolute;
+    box-sizing: border-box;
+    content: attr(data-text);
+    color:#081E5B;
+    width: 0%;
+    inset: 0;
+    border-right: 6px solid #081E5B;
+    overflow: hidden;
+    transition: 0.5s;
+    -webkit-text-stroke: 1px #081E5B;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.Info img{
+    height: 80px
+}
+
+.Slide i {
+    vertical-align: middle;
+    font-size: 1.5em;
+}
+
+.Slide:hover .hover-text {
+    width: 100%;
+    filter: drop-shadow(0 0 23px #081E5B);
+    border-right: 6px solid #0dcce9;
+}
+
+@media screen and (max-width: 600px){ 
+
+    .Container {
+
+        margin-top: 25%;
+     
+    
+    }
+    
+ }

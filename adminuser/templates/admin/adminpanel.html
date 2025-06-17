@@ -1,0 +1,229 @@
+{% load static %}
+            <!-- Main content -->
+            <!-- <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                </div>
+                <p>Welcome to the admin panel! Here you can manage your application.</p>
+            </main>
+        </div>
+    </div> -->
+
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
+        <link rel="stylesheet" href="{% static '/css/Style-Dashboard-Admin.css' %}">
+
+        <title>Home Admin</title>
+    </head>
+
+    <body>
+        
+        <div class="Container">
+
+            <div class="Details">
+
+                <div class="Welcome">
+
+                    <div class="Settings-Container">
+                        <i class="bx bx-user Icon-User"></i>
+                        <p class="Text">Admin</p>
+                        <span
+                            class="💀" data-content="📫" data-hover-content="📪" data-active-content="📬">
+                        </span>
+                        <button class="Settings">
+                            <i class="fas fa-cogs"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="Cards">
+                    <a href="registercategory" class="Card First">
+                        <i class="fi fi-rr-category-alt"></i>
+                        <p class="Tip">Register category</p>
+                    </a>
+                    <a href="registersupplier" class="Card Second">
+                        <i class="fi fi-rr-supplier-alt"></i>
+                        <p class="Tip">Register supplier</p>
+                    </a>
+                    <a href="registeremployee" class="Card Third">
+                        <i class="fi fi-rr-employees-woman-man"></i>
+                        <p class="Tip">Register employee</p>
+                    </a>
+                    <a href="addproduct" class="Card Fourth">
+                        <i class="fi fi-rr-boxes"></i>  
+                        <p class="Tip">Add Products</p>
+                    </a>
+                </div>
+                
+                <div class="Statistics-Grid">
+
+                    <div class="Statistics">
+                        <div class="Skill-Box">
+                            <span class="Title">ERICK</span>
+                        
+                            <div class="Skill-Bar">
+                                <span class="Skill-Per HTML">
+                                    <span class="Tooltip">WIIIII%</span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="Skill-Box">
+                            <span class="Title">MAJITO</span>
+                        
+                            <div class="Skill-Bar">
+                                <span class="Skill-Per SCSS">
+                                    <span class="Tooltip">WIIIII%</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="Skill-Box">
+                            <span class="Title">EDYMAR</span>
+                        
+                            <div class="Skill-Bar">
+                                <span class="Skill-Per Boostrap">
+                                    <span class="Tooltip">WIIIII%</span>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="Statistics">
+                        
+                        <div class="Skill-Box">
+                            <span class="Title">WORREN</span>
+                            <div class="Skill-Bar">
+                                <span class="Skill-Per HTML">
+                                    <span class="Tooltip">WIIIII%</span>
+                                </span>
+                            </div>
+                        </div>
+                    
+                        <div class="Skill-Box">
+                            <span class="Title">DANIEL</span>
+                        
+                            <div class="Skill-Bar">
+                                <span class="Skill-Per SCSS">
+                                    <span class="Tooltip">WIIIII%</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="Skill-Box">
+                            <span class="Title">LIRIO</span>
+                        
+                            <div class="Skill-Bar">
+                                <span class="Skill-Per Boostrap">
+                                    <span class="Tooltip">WIIIII%</span>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="Statistics">
+                        <div class="Skill-Box">
+                            <span class="Title">ERICK</span>
+                        
+                            <div class="Skill-Bar">
+                                <span class="Skill-Per HTML">
+                                    <span class="Tooltip">WIIIII%</span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="Skill-Box">
+                            <span class="Title">MAJITO</span>
+                        
+                            <div class="Skill-Bar">
+                                <span class="Skill-Per SCSS">
+                                    <span class="Tooltip">WIIIII%</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="Skill-Box">
+                            <span class="Title">EDYMAR</span>
+                        
+                            <div class="Skill-Bar">
+                                <span class="Skill-Per Boostrap">
+                                    <span class="Tooltip">WIIIII%</span>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="Statistics">
+                        
+                        <div class="Skill-Box">
+                            <span class="Title">WORREN</span>
+                            <div class="Skill-Bar">
+                                <span class="Skill-Per HTML">
+                                    <span class="Tooltip">WIIIII%</span>
+                                </span>
+                            </div>
+                        </div>
+                    
+                        <div class="Skill-Box">
+                            <span class="Title">DANIEL</span>
+                        
+                            <div class="Skill-Bar">
+                                <span class="Skill-Per SCSS">
+                                    <span class="Tooltip">WIIIII%</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="Skill-Box">
+                            <span class="Title">LIRIO</span>
+                        
+                            <div class="Skill-Bar">
+                                <span class="Skill-Per Boostrap">
+                                    <span class="Tooltip">WIIIII%</span>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="Navigation">
+                    <label title="home" for="home" class="label">
+                        <input id="home" name="page" type="radio" checked="" />
+                        <i class="fi fi-rr-marketplace-store"></i>
+                    </label>
+                    <label title="cart" for="cart" class="label">
+                        <input id="cart" name="page" type="radio" />
+                        <i class="fi fi-rr-shopping-cart"></i>
+                    </label>
+                    <label title="favorite" for="favorite" class="label">
+                        <input id="favorite" name="page" type="radio" />
+                        <i class="fi fi-rr-heart"></i>
+                    </label>
+                    <label title="notifications" for="notifications" class="label">
+                        <input id="notifications" name="page" type="radio" />
+                        <i class="fi fi-rr-bell-notification-social-media"></i>
+                    </label>
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+    
+</html>

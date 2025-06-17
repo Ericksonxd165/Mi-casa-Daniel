@@ -1,0 +1,46 @@
+.Navigation {
+
+    left: 2%;
+    right: 0;
+    bottom: 1%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #081E5B;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: 96%;
+    height: 60px;
+}
+
+.label {
+    padding: 8px 18px;
+    transition: all 200ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.label input[type="radio"] {
+    display: none;
+}
+
+.label i {
+    color: #ffffff;
+    font-size: 20px;
+    transition: 300ms;
+}
+
+.label:hover:not(:has(input:checked)) i {
+    color: #ffffff;
+    opacity: 0.7;
+    transform: translateY(-2px); 
+}
+
+.label:has(input:checked) i {
+    color:#46e3ff; 
+    transform: scale(1.15);
+    text-shadow: 0 0 8px #46e3ff;
+}

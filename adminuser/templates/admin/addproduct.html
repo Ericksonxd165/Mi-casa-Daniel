@@ -1,0 +1,214 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir Producto</title>
+    <link rel="stylesheet" href="{% static 'css/addform.css' %}">
+    <link rel="stylesheet" href="{% static 'css/menu-navbar-admin.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <a href="/adminuser/">
+            <button class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </a>
+            <h1>Add Product</h1>
+            <button class="settings-btn">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+        
+        <!-- Main Form -->
+        <div class="form-card">
+            <form method="post" enctype="multipart/form-data" id="product-form">
+                {% csrf_token %}
+                
+                <!-- Images Section -->
+                <div class="form-section">
+                    <label class="form-label">Images</label>
+                    <div class="image-container" id="image-container">
+                        <div class="image-upload" id="image-upload">
+                            <label for="image-input">
+                                <div class="upload-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <span>Upload Image</span>
+                            </label>
+                            <input type="file" id="image-input" name="images" accept="image/*" hidden>
+                        </div>
+                    </div>
+                    <p class="image-counter"><span id="image-count">0</span>/5 Images</p>
+                    
+                    <!-- Hidden input to store image data for Django -->
+                    <div id="django-image-formset">
+                        {{ image_formset.management_form }}
+                        {% for form in image_formset %}
+                            <div class="hidden-form">
+                                {{ form.id }}
+                                <div class="form-error">{{ form.image.errors }}</div>
+                                {{ form.image }}
+                                {{ form.DELETE }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Product Info -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="{{ form.name.id_for_label }}" class="form-label">Product Name</label>
+                        {{ form.name }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.description.id_for_label }}" class="form-label">Product Description</label>
+                        {{ form.description }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.category.id_for_label }}" class="form-label">Category</label>
+                        {{ form.category }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.weight.id_for_label }}" class="form-label">Weight (kg)</label>
+                        {{ form.weight }}
+                    </div>
+                </div>
+                
+                <!-- Providers Section -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <label class="form-label">Providers</label>
+                        <button type="button" id="add-provider" class="add-btn">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    
+                    <div id="providers-container">
+                        <!-- Provider formset will be rendered here -->
+                        {{ provider_formset.management_form }}
+                        {% for provider_form in provider_formset %}
+                            <div class="provider-card" data-index="{{ forloop.counter0 }}">
+                                <div class="provider-header">
+                                    <span>Proveedor {{ forloop.counter }}</span>
+                                    {% if forloop.counter > 1 %}
+                                        <button type="button" class="remove-provider">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="provider-form">
+                                    {{ provider_form.id }}
+                                    
+                                    <div class="form-group">
+                                        <label for="{{ provider_form.provider.id_for_label }}" class="form-label">Provider</label>
+                                        {{ provider_form.provider }}
+                                    </div>
+                                    
+                                    <div class="provider-details">
+                                        <div class="form-group half">
+                                            <label for="{{ provider_form.price.id_for_label }}" class="form-label">Price ($)</label>
+                                            {{ provider_form.price }}
+                                        </div>
+                                        <div class="form-group half">
+                                            <label for="{{ provider_form.stock.id_for_label }}" class="form-label">Stock</label>
+                                            {{ provider_form.stock }}
+                                        </div>
+                                    </div>
+                                    
+                                    {{ provider_form.DELETE }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="form-actions">
+                    <button type="submit" class="save-btn">SAVE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Templates for JavaScript -->
+    <template id="image-preview-template">
+        <div class="image-preview">
+            <img src="/placeholder.svg" alt="Preview">
+            <button type="button" class="remove-image">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </template>
+    
+    <template id="provider-template">
+        <div class="provider-card" data-index="__PREFIX__">
+            <div class="provider-header">
+                <span>Provider __COUNTER__</span>
+                <button type="button" class="remove-provider">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="provider-form">
+                {{ provider_formset.empty_form.id }}
+                
+                <div class="form-group">
+                    <label for="{{ provider_formset.empty_form.provider.id_for_label }}" class="form-label">Provider</label>
+                    {{ provider_formset.empty_form.provider }}
+                </div>
+                
+                <div class="provider-details">
+                    <div class="form-group half">
+                        <label for="{{ provider_formset.empty_form.price.id_for_label }}" class="form-label">Price ($)</label>
+                        {{ provider_formset.empty_form.price }}
+                    </div>
+                    <div class="form-group half">
+                        <label for="{{ provider_formset.empty_form.stock.id_for_label }}" class="form-label">Stock</label>
+                        {{ provider_formset.empty_form.stock }}
+                    </div>
+                </div>
+                
+                {{ provider_formset.empty_form.DELETE }}
+            </div>
+        </div>
+    </template>
+    
+
+    <div class="Navigation">
+        <label title="home" for="home" class="label">
+            <input id="home" name="page" type="radio" checked="" />
+            <i class="fi fi-rr-marketplace-store"></i>
+        </label>
+        <label title="cart" for="cart" class="label">
+            <input id="cart" name="page" type="radio" />
+            <i class="fi fi-rr-shopping-cart"></i>
+        </label>
+        <label title="favorite" for="favorite" class="label">
+            <input id="favorite" name="page" type="radio" />
+            <i class="fi fi-rr-heart"></i>
+        </label>
+        <label title="notifications" for="notifications" class="label">
+            <input id="notifications" name="page" type="radio" />
+            <i class="fi fi-rr-bell-notification-social-media"></i>
+        </label>
+    </div>
+
+    <script src="{% static 'js/product-form.js' %}"></script>
+</body>
+</html>
+

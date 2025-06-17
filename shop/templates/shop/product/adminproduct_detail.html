@@ -1,0 +1,196 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/header.css' %}">  <!-- estilos del header -->
+    <link rel="stylesheet" href="{% static '/css/product.css' %}"><!-- estilos del componente de home-->
+    <link rel="stylesheet" href="{% static '/css/menu-navbar.css' %}"> <!-- estilos del menu-->
+  
+
+    <!--CDN de iconos-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
+    <title>Corpoasia - Product</title>
+</head>
+<body>
+    <header>
+        <a >
+            <div class="logo">
+                <h1>
+                    <i>CORPOASIA</i><br><b>INVESTMENTS</b>
+                  </h1>
+            </div>
+        </a>
+       
+    
+        <div class="site-placer">
+            <h1><i class="fa-solid fa-basket-shopping"></i> Product</h1>
+          </div>
+    
+       </header>
+
+       <a href="/scanner" id="back-arrow">
+        <button class="back-button">
+            <span><i class="fa-solid fa-arrow-left"></i>  Scann more</span>
+        </button>
+      </a>
+
+
+       <div class="main-banner">
+        <div class = "main-wrapper">
+          {% block content %}
+        <div class="container-product">
+    <div class="product-div">
+        <div class="product-div-left">
+      <div class="contenedorsin">
+            <span id="left-arrow"><i class="fa-solid fa-arrow-left"></i></span>
+            <!-- Carrusel de imágenes principal -->
+            <div class="img-container">
+                {% with product.get_display_image as main_image %}
+
+                {% if main_image %}
+                    <img src="{{ main_image.image.url }}" alt="{{ product.name }}" id="main-product-image">
+                {% else %}
+                    <img src="{% static 'images/placeholder.png' %}" alt="No image available" id="main-product-image">
+                {% endif %}
+
+                {% endwith %}
+            </div>      
+            <span id="right-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+            <div class="hover-container">
+                {% for image in product.images.all|slice:":5" %}
+                    <div>
+                        <img src="{{ image.image.url }}" alt="Thumbnail {{ forloop.counter }}" 
+                             onmouseover="changeMainImage('{{ image.image.url }}')"
+                             onclick="changeMainImage('{{ image.image.url }}')">
+                    </div>
+                {% empty %}
+                    <div><img src="{% static 'images/placeholder.png' %}" alt="No images"></div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="product-div-right">
+            <span class="product-name">{{ product.name }}</span>
+            <span class="product-price">${{ product.min_price|floatformat:2 }} - ${{ product.max_price|floatformat:2 }}</span>
+            
+            <div class="product-rating">
+              {% for i in "12345" %}
+            <span class="star" data-value="{{ forloop.counter }}">
+                <i class="far fa-star"></i>
+            </span>
+        {% endfor %}
+                <span>({{ product.review_count|default:"0" }} ratings)</span>
+            </div>
+            <br>
+            
+            <div class="product-specs">
+                <b>Size:</b>
+                <span>{{ product.size }}</span><br>
+            </div>
+            <div class="product-specs">
+                <b>Weight: </b>
+                <span>{{ product.weight }} kg</span>
+            </div>
+            
+            <p class="product-description">{{ product.description }}</p>
+            
+            <div class="btn-groups">
+                <button type="button" class="add-cart-btn">
+                    <i class="fas fa-shopping-cart"></i> Add to cart
+                </button>
+                <button type="button" id="provider-select" class="buy-now-btn">
+                    <i class="fas fa-wallet"></i> Select Provider
+                </button>
+            </div>
+            <br>
+            
+            <div class="providers-groups">
+                {% for supplier in product.product_suppliers.all|slice:":3" %}
+                    <button type="button" class="buy-now-btn 
+                        {% cycle 'green' 'red' 'blue' %}">
+                        <b>{{ supplier.supplier.name }}:</b> 
+                        ${{ supplier.price|floatformat:2 }} 
+                        {% if supplier.discount_percentage %}
+                            - {{ supplier.discount_percentage }}% off 
+                        {% endif %}
+                        <i class="fa-solid fa-tag"></i>
+                    </button>
+                {% empty %}
+                    <p>No suppliers available</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de proveedores -->
+<div id="provider-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Select a Provider</h3>
+        <br>
+        <div class="modal-scroll">
+            <div class="container-provider">
+                {% for supplier in product.product_suppliers.all %}
+                    <div class="provider-option">
+                        <h4>{{ supplier.supplier.name }}</h4>
+                        <p>Price: ${{ supplier.price|floatformat:2 }}</p>
+                        <p>Currency: {{ supplier.get_currency_display }}</p>
+                        {% if supplier.delivery_time %}
+                            <p>Delivery: {{ supplier.delivery_time }} days</p>
+                        {% endif %}
+                        <button type="button" class="select-provider-btn" 
+                                data-price="{{ supplier.price }}"
+                                data-supplier="{{ supplier.supplier.name }}">
+                            Select this provider
+                        </button>
+                    </div>
+                {% empty %}
+                    <p>No suppliers available for this product</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+      {% endblock %}
+
+
+
+
+      <div class="Navigation">
+
+        <label title="cart" for="cart" class="label">
+            <input id="cart" name="page" type="radio" checked="" />
+            <i class="fi fi-rr-shopping-cart"></i>
+        </label>
+        <label title="store" for="store" class="label">
+            <input id="store" name="page" type="radio" />
+            <i class="fi fi-rr-catalog-magazine"></i>
+            </label>
+        <label title="home" for="home" class="label">
+            <input id="home" name="page" type="radio"  />
+            <i class="fi fi-rr-house-chimney"></i>
+        </label>
+    
+        <label title="favorite" for="favorite" class="label">
+            <input id="favorite" name="page" type="radio" />
+            <i class="fi fi-rr-camera-viewfinder"></i>
+        </label>
+        <label title="notifications" for="notifications" class="label">
+            <input id="notifications" name="page" type="radio" />
+            <i class="fi fi-rr-user"></i>
+        </label>
+    </div>
+    
+
+</body>
+<script src="{% static '/js/product.js' %}"></script>
+</html>
