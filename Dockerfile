@@ -1,23 +1,26 @@
 # Usa la imagen oficial de Python 3.9 como base
 FROM python:3.9
 
+# Establece una variable de entorno para evitar que Python genere archivos pyc
+ENV PYTHONUNBUFFERED 1
+
 # Crea el directorio de trabajo en el contenedor
 RUN mkdir /china-prototipo
 WORKDIR /china-prototipo
 
-# Crear un usuario no root
-RUN useradd -m myuser
-USER myuser
+# Ejecuta los comandos de actualización e instalación de dependencias con permisos de root
+USER root  # Cambia al usuario root temporalmente para ejecutar los siguientes comandos
 
-# Copia el archivo de requerimientos a instalar
-COPY requirements.txt /china-prototipo/
-
-# Actualiza el sistema e instala dependencias necesarias
+# Actualiza el sistema e instala dependencias necesarias para compilación de algunas bibliotecas
 RUN apt-get update && apt-get install -y default-libmysqlclient-dev build-essential
 
 # Instala los requerimientos de Python
 RUN python -m pip install --upgrade pip
 RUN python -m pip install -r requirements.txt
+
+# Cambia a un usuario no root después de instalar las dependencias
+RUN useradd -m myuser
+USER myuser  # Cambia al usuario no root
 
 # Copia todo el código fuente al contenedor
 COPY . /china-prototipo/
