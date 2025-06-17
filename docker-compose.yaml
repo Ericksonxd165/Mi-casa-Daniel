@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   db:
     image: postgres:13
@@ -9,22 +11,22 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     expose:
-      - 5432
+      - 5432  # Solo expuesto para otros contenedores, no es necesario en producción
 
   web:
     build: .
     restart: always
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn conf.wsgi:application --bind 0.0.0.0:8000  # Usamos Gunicorn para producción
     volumes:
       - .:/china-prototipo
-      - ./media:/china-prototipo/media
+      - ./media:/china-prototipo/media  # Persistencia de la carpeta media
     ports:
-      - "8000:8000"
+      - "8000:8000"  # Mapeamos el puerto del contenedor al puerto 8000
     depends_on:
       - db
     environment:
       DJANGO_SETTINGS_MODULE: conf.settings
-      DATABASE_URL: postgres://postgres:postgres@db:5432/postgres
+      DATABASE_URL: postgres://postgres:postgres@db:5432/postgres  # Definimos la URL de la base de datos
 
 volumes:
-  postgres_data:
+  postgres_data:  # Volumen para la persistencia de datos de la base de datos

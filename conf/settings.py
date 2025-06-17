@@ -20,31 +20,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Añade esta configuración (ajusta el dominio según tu entorno)
-BASE_DOMAIN = 'http://localhost:8000'  # Para desarrollo
-# BASE_DOMAIN = 'https://tudominio.com'  # Para producción
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+# Configuración del dominio
+BASE_DOMAIN = 'https://yourapp.onrender.com'  # Reemplaza con tu dominio de producción en Render
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_x-6bblbp-z-@80vjzijmf!c5pql!5#_@&xvgm@vgt)(@4mgdp'
-# SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
+# Seguridad: Mantén la clave secreta en producción secreta
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# No ejecutar con debug en producción
+DEBUG = False
 
-DEBUG = True
-# DEBUG = 'RENDER' not in os.environ
-
-ALLOWED_HOSTS = ['*']
-# # ALLOWED_HOSTS = ['*']
-
-# RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-
-# if RENDER_EXTERNAL_HOSTNAME:
-#     ALLOWED_HOSTS.append('RENDER_EXTERNAL_HOSNAME')
+# Permitir solo tu dominio o el de Render
+ALLOWED_HOSTS = ['yourapp.onrender.com', 'www.yourapp.onrender.com']
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -57,7 +45,6 @@ INSTALLED_APPS = [
     'adminuser.apps.AdminuserConfig',
     'home.apps.HomeConfig',
     'orders.apps.OrdersConfig',
-
 ]
 
 MIDDLEWARE = [
@@ -91,41 +78,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'conf.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# DATABASES = {
-#      'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#      }
-#  }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
+# Configuración de base de datos
 DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
-    
-DATABASE_URL = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': '5432'
-    }
-}
 
 # Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -141,38 +99,31 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
 STATIC_URL = '/static/'
+
+# Configuración de archivos estáticos en producción
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'home/static'),
 ]
 
 STATICFILES_DIR = [
-    os.path.join(BASE_DIR, 'static/qrcodes/')
+    os.path.join(BASE_DIR, 'static/qrcodes/'),
 ]
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
+# Definir campo primario
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+# Rutas de media
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'china-prototipo/media')
 MEDIA_URL = '/media/'
 
+# Sesión del carrito
 CART_SESSION_ID = 'cart'
