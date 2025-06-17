@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 # Permitir solo tu dominio o el de Render
-ALLOWED_HOSTS = [os.environ.get('BASE_DOMAIN', 'localhost')]
+ALLOWED_HOSTS = [os.environ.get('BASE_DOMAIN', 'localhost'),'desploy-6.onrender.com']
 
 # Application definition
 INSTALLED_APPS = [
