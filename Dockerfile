@@ -8,8 +8,11 @@ ENV PYTHONUNBUFFERED 1
 RUN mkdir /china-prototipo
 WORKDIR /china-prototipo
 
+# Copia el archivo de requerimientos a instalar
+COPY requirements.txt /china-prototipo/
+
 # Actualiza el sistema e instala dependencias necesarias para compilación de algunas bibliotecas
-RUN apt-get update && apt-get install -y default-libmysqlclient-dev build-essential
+RUN apt-get update && apt-get install -y build-essential libpq-dev
 
 # Instala los requerimientos de Python
 RUN python -m pip install --upgrade pip
