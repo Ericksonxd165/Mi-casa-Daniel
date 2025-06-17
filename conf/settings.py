@@ -116,5 +116,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Definir campo primario
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Rutas de media
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'china-prototipo/media')
+MEDIA_URL = '/media/'
+
 # Sesión del carrito
 CART_SESSION_ID = 'cart'
