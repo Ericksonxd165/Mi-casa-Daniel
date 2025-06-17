@@ -8,9 +8,6 @@ ENV PYTHONUNBUFFERED 1
 RUN mkdir /china-prototipo
 WORKDIR /china-prototipo
 
-# Ejecuta los comandos de actualización e instalación de dependencias con permisos de root
-USER root  # Cambia al usuario root temporalmente para ejecutar los siguientes comandos
-
 # Actualiza el sistema e instala dependencias necesarias para compilación de algunas bibliotecas
 RUN apt-get update && apt-get install -y default-libmysqlclient-dev build-essential
 
@@ -18,9 +15,9 @@ RUN apt-get update && apt-get install -y default-libmysqlclient-dev build-essent
 RUN python -m pip install --upgrade pip
 RUN python -m pip install -r requirements.txt
 
-# Cambia a un usuario no root después de instalar las dependencias
+# Crea un usuario no root para ejecutar la aplicación (esto es opcional pero recomendado por razones de seguridad)
 RUN useradd -m myuser
-USER myuser  # Cambia al usuario no root
+USER myuser
 
 # Copia todo el código fuente al contenedor
 COPY . /china-prototipo/
