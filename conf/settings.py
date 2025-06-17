@@ -5,6 +5,7 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Rutas de media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -50,7 +51,13 @@ ROOT_URLCONF = 'conf.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),  # Para plantillas globales
+            os.path.join(BASE_DIR, 'home/templates'),  # Para plantillas de la app 'home'
+            os.path.join(BASE_DIR, 'shop/templates'),  # Para plantillas de la app 'shop'
+            os.path.join(BASE_DIR, 'cart/templates'),  # Para plantillas de la app 'cart'
+            # Agregar más rutas si es necesario
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -95,9 +102,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-# Configuración de archivos estáticos en producción
+# Directorios de archivos estáticos de las apps
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'home/static'),
+    os.path.join(BASE_DIR, 'home/static'),  # Static files de la app 'home'
+    os.path.join(BASE_DIR, 'shop/static'),  # Static files de la app 'shop'
+    os.path.join(BASE_DIR, 'cart/static'),  # Static files de la app 'cart'
+    # Agregar otras rutas de apps si es necesario
 ]
 
 # Definir STATIC_ROOT en producción para almacenar los archivos estáticos
@@ -105,10 +115,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Definir campo primario
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Rutas de media
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'china-prototipo/media')
-MEDIA_URL = '/media/'
 
 # Sesión del carrito
 CART_SESSION_ID = 'cart'
