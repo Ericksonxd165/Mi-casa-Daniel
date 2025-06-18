@@ -1,41 +1,30 @@
 #!/bin/bash
+# Script refreshed on 2025-06-18 17:07:51 UTC
 # Exit on error
 set -o errexit
 
+# Install dependencies first
+echo "Installing dependencies..."
+pip install -r requirements.txt
+
+# Apply database migrations
 echo "Applying database migrations..."
 python manage.py migrate auth
 python manage.py migrate contenttypes
-python manage.py migrate sessions # sessions often comes early too
-# Add other django.contrib apps if they have migrations and are used by your apps directly in migrations
-# python manage.py migrate admin 
+python manage.py migrate sessions
 
-# Project specific apps
+# Project specific apps - ensure this order is correct for your app dependencies
+python manage.py migrate adminuser # adminuser might have users, good to have it early if other apps depend on its models
 python manage.py migrate shop
-python manage.py migrate cart
-
-pip install -r requirements.txt
-
-python manage.py makemigrations adminuser
-python manage.py makemigration cart
-python manage.py makemigrations home
-python manage.py makemigrations orders
-python manage.py makemigrations shop
-
-
-python manage.py migrate adminuser
 python manage.py migrate cart
 python manage.py migrate home
 python manage.py migrate orders
-python manage.py migrate shop
-
-
-# Apply database migrations
-python manage.py migrate
 
 # Collect static files
+echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
-
+# Attempt to create superuser
 echo "Attempting to create superuser 'admin'..."
 cat <<EOF | python manage.py shell
 from django.contrib.auth import get_user_model
