@@ -3,6 +3,7 @@ __pycache__/
 __init__.py
 *.py[cod]
 *$py.class
+migrations/
 
 # C extensions
 *.so
@@ -178,4 +179,57 @@ postgres_data/
 
 
 
-migrations/
+# Archivos de Python generados
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+.coverage
+
+# Archivos de entorno virtual
+venv/
+.venv/
+env/
+.env
+
+# Archivos de la base de datos (¡Importante!)
+*.sqlite3
+*.db
+*.psql # Si usas archivos de volcado de PostgreSQL localmente
+
+# Archivos de migración (¡Importante! - Excluir el contenido, no la carpeta)
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Archivos de configuración local (¡Importante!)
+local_settings.py
+.env
+.env.*
+*.ini # Otros archivos de configuración local
+
+# Archivos de caché y temporales de Django
+*.log
+*.pot
+media/  # Opcional, si no quieres trackear archivos subidos por usuarios
+static/*
+!static/.git # Si quieres trackear el contenido de un submodulo dentro de static
+
+# Archivos específicos del IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.DS_Store
+
+# Archivos del sistema operativo
+tmp/
+$RECYCLE.BIN/
+Thumbs.db
+
+# Archivos de Docker (si no quieres trackear logs o builds locales)
+docker-compose.override.yml
+*.log
+
+# Otros archivos o directorios que quieras ignorar
+# ... añade aquí tus propios patrones ...

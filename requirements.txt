@@ -9,6 +9,3 @@ Pillow # Si estás trabajando con imágenes
 #poetry
 # Agrega aquí otras dependencias de tu proyecto
 
-# """En el caso de necesitar asincronismo para mensajes"""
-#celery
-gunicorn==20.1.0  
