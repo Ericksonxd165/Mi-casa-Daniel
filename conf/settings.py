@@ -19,7 +19,26 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # Permitir solo tu dominio o el de Render
-ALLOWED_HOSTS = [os.environ.get('BASE_DOMAIN', 'desploy-7.onrender.com'), 'localhost']
+ALLOWED_HOSTS = ['localhost']
+
+# Add RENDER_EXTERNAL_HOSTNAME (the .onrender.com domain)
+render_external_hostname = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if render_external_hostname:
+    ALLOWED_HOSTS.append(render_external_hostname)
+else:
+    # Fallback to your specific domain if RENDER_EXTERNAL_HOSTNAME is not available
+    # (e.g. local environment or if something is unusual with Render's env vars)
+    ALLOWED_HOSTS.append('desploy-7.onrender.com')
+
+# Add BASE_DOMAIN (for custom domains), stripping any scheme
+base_domain_env = os.environ.get('BASE_DOMAIN')
+if base_domain_env:
+    processed_base_domain = base_domain_env.replace('https://', '').replace('http://', '').split('/')[0]
+    if processed_base_domain and processed_base_domain not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(processed_base_domain)
+
+# Ensure uniqueness
+ALLOWED_HOSTS = list(set(ALLOWED_HOSTS))
 
 # Application definition
 INSTALLED_APPS = [
