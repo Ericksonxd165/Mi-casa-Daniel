@@ -5,23 +5,21 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Seguridad
-SECRET_KEY = os.environ.get('SECRET_KEY', default='your-secret-key')  # Usa una variable de entorno para la secret key
-
-DEBUG = False  # En producción, DEBUG debe ser False
-ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'localhost')]  # Permite el hostname de Render
-
-# Establece las URLs de archivos estáticos y medios
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+# Rutas de media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Configuración de la base de datos
-DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))  # Carga la URL de la base de datos desde las variables de entorno
-}
+# Configuración del dominio
+BASE_DOMAIN = os.environ.get('BASE_DOMAIN', 'http://localhost:8000')  # Reemplaza con tu dominio de producción en Render
+
+# Seguridad: Mantén la clave secreta en producción secreta
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+# No ejecutar con debug en producción
+DEBUG = True
+
+# Permitir solo tu dominio o el de Render
+ALLOWED_HOSTS = [os.environ.get('BASE_DOMAIN', 'localhost'), 'desploy-7.onrender.com']
 
 # Application definition
 INSTALLED_APPS = [
@@ -35,27 +33,31 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'adminuser.apps.AdminuserConfig',
     'home.apps.HomeConfig',
+    'orders.apps.OrdersConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'conf.middleware.CustomCsrfMiddleware',  # Mantén solo este middleware CSRF
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-# CSRF settings
-CSRF_EXEMPT_URLS = [r'^shop/save_order/$']
 
 ROOT_URLCONF = 'conf.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),  # Para plantillas globales
+            os.path.join(BASE_DIR, 'home/templates'),  # Para plantillas de la app 'home'
+            os.path.join(BASE_DIR, 'shop/templates'),  # Para plantillas de la app 'shop'
+            os.path.join(BASE_DIR, 'cart/templates'),  # Para plantillas de la app 'cart'
+            # Agregar más rutas si es necesario
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,12 +72,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'conf.wsgi.application'
 
+# Configuración de base de datos
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
+
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
 
 # Internationalization
@@ -84,9 +99,26 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static and media files
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'home/static')]
-STATICFILES_DIR = [os.path.join(BASE_DIR, 'static/qrcodes/')]  # Se puede ajustar dependiendo de la estructura
 
+# Directorios de archivos estáticos de las apps
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'home/static'),  # Static files de la app 'home'
+    os.path.join(BASE_DIR, 'shop/static'),  # Static files de la app 'shop'
+    os.path.join(BASE_DIR, 'cart/static'),  # Static files de la app 'cart'
+    # Agregar otras rutas de apps si es necesario
+]
+
+# Definir STATIC_ROOT en producción para almacenar los archivos estáticos
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Definir campo primario
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Rutas de media
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'china-prototipo/media')
+MEDIA_URL = '/media/'
+
+# Sesión del carrito
+CART_SESSION_ID = 'cart'

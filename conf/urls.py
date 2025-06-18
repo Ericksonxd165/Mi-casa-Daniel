@@ -23,14 +23,17 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('shop/', include('shop.urls')),  
     path('cart/', include('cart.urls', namespace='cart')),
+    path('orders/', include('orders.urls', namespace='orders')),
 
-    #path('', views.home, name='home'),
-    path('', include('home.urls', namespace='index')),
+    # Urls creadas de manera especifica 
+    path('', include('home.urls', namespace='home')),
     path('adminuser/', include('adminuser.urls', namespace='adminuser')),
 
 ]
 
 
-
+if settings.DEBUG:  # Solo en desarrollo
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
