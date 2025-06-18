@@ -13,25 +13,25 @@
     <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/js/all.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
 
+    <script src="{% static '/js/auth.js' %}"></script>
 
-    <title>Corpoasia - Product</title>
+    <title>MICASA - Product</title>
 </head>
 <body>
-    <header>
-        <a >
+    
+    <header class="main-header">
+     <a>
+        <div class="logo">
             <div class="logo">
-                <h1>
-                    <i>CORPOASIA</i><br><b>INVESTMENTS</b>
-                  </h1>
+                <h1>MICASA</h1>
             </div>
-        </a>
-       
-    
-        <div class="site-placer">
-            <h1><i class="fa-solid fa-basket-shopping"></i> Product</h1>
-          </div>
-    
-       </header>
+        </div>
+    </a>
+
+    <div class="site-placer">
+        <h2><i class="fa-solid fa-cart-shopping"></i> Product</h2>
+    </div>
+</header>
 
 
        <div class="main-banner">
@@ -123,30 +123,93 @@
 
 
 
+      <div class="nav-shadow-wrapper">
 
-       <div id="page" class="site">
-        <div class="container">
-            <nav>
-                <input type="checkbox" id="link" hidden>
-                <label for="link" class="link">
-                    <i class="menu fa-solid fa-bars-staggered"></i>
-                    <i class="close fa-solid fa-xmark"></i>
-                </label>
-    
-                <!-- Overlay oscuro -->
-                <div class="overlay"></div>
-    
-                <ul class="submenu">
-                    <li><a class="h-link" href="scanner.html"><span>ScanQR</span> <i class="fa-solid fa-qrcode i-tag"></i></a></li>
-                    <li><a class="h-link" href="catalog.html"><span>Catalog</span> <i class="fa-solid fa-book-open i-tag"></i></a></li>
-                    <li><a class="h-link" href="home.html"><span>Home</span> <i class="fa-solid fa-house i-tag"></i></a></li>
-                    <li><a class="h-link" href="cart.html"><span>Cart</span> <i class="fa-solid fa-cart-shopping i-tag"></i></a></li>
-                    <li><a class="h-link" href="account.html"><span>Account</span> <i class="fa-solid fa-user i-tag"></i></a></li>
-                </ul>
-            </nav>
+        <div class="Navigation">
+
+            <label title="Cart" for="cart" class="label">
+                <a href="/carrito">
+                    <input id="cart" name="page" type="radio"  />
+                    <i class="fi fi-rr-shopping-cart"></i>
+                </a>
+            </label>
+
+            <label title="Shop" for="store" class="label">
+                <a href="/shop/">
+                    <input id="store" name="page" type="radio" />
+                    <i class="fi fi-rr-catalog-magazine"></i>
+                </a>
+            </label>
+
+            <label title="Home" for="home" class="label" >
+                <a href="/home/">
+                    <input id="home" name="page" type="radio"  />
+                    <i class="fi fi-rr-house-chimney"></i>
+                </a>
+            </label>
+
+            <label title="Scanner" for="favorite" class="label" checked="">
+                <a href="/scanner">
+                    <input id="favorite" name="page" type="radio" />
+                    <i class="fi fi-rr-camera-viewfinder"></i>
+                </a>
+            </label>
+
+            <label title="Profile" for="notifications" class="label">
+                <a href="/profile/">
+                    <input id="notifications" name="page" type="radio" />
+                    <i class="fi fi-rr-user"></i>
+                </a>
+            </label>
+            
         </div>
+        
     </div>
+    
+<div class="nav-shadow-wrapper">
+
+    <div class="Navigation">
+
+        <label title="Cart" for="cart" class="label">
+            <a href="/carrito">
+                <input id="cart" name="page" type="radio"/>
+                <i class="fi fi-rr-shopping-cart"></i>
+            </a>
+        </label>
+
+        <label title="Shop" for="store" class="label">
+            <a href="/shop/">
+                <input id="store" name="page" type="radio"/>
+                <i class="fi fi-rr-catalog-magazine"></i>
+            </a>
+        </label>
+
+        <label title="Home" for="home" class="label" >
+            <a href="/home/">
+                <input id="home" name="page" type="radio"/>
+                <i class="fi fi-rr-house-chimney"></i>
+            </a>
+        </label>
+
+        <label title="Scanner" for="favorite" class="label">
+            <a href="/scanner">
+                <input id="favorite" name="page" type="radio"/>
+                <i class="fi fi-rr-camera-viewfinder"></i>
+            </a>
+        </label>
+
+        <label title="Profile" for="notifications" class="label">
+            <a href="/profile/">
+                <input id="notifications" name="page" type="radio"/>
+                <i class="fi fi-rr-user"></i>
+            </a>
+        </label>
+        
+    </div>
+    
+</div>
 
 </body>
+<script src="../static/js/brillo.js"></script>
 <script src="{% static '/js/product.js' %}"></script>
 </html>

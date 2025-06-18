@@ -1,144 +1,292 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <link rel="stylesheet" href="{% static 'css/editform.css' %}">
+    <link rel="stylesheet" href="{% static 'css/menu-navbar-admin-foredit.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+</head>
+<body>
+    <!-- Datos para JavaScript -->
+    <div id="app-data" 
+         data-image-count="{{ image_formset.total_form_count }}"
+         data-provider-count="{{ supplier_formset.total_form_count }}"
+         data-max-images="5"
+         data-max-providers="5">
+    </div>
 
-{% block content %}
-<div class="main-banner" style="align-items: center;">
-  <div class="container-form">
-    <div class="card-form cart">
-      <h1 class="title">Edit product</h1>
-      <div class="steps">
-        <div class="step">
-          <form class="form" action=" ">
-          <div>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <a href="{% url 'adminuser:adminproducts' %}">
+                <button class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </a>
+            <h1>Edit Product</h1>
+            <button class="settings-btn">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+        
+        <!-- Main Form -->
+        <div class="form-card">
+            <form method="post" enctype="multipart/form-data" id="product-form">
+                {% csrf_token %}
+                
+                <!-- Images Section -->
+                <div class="form-section">
+                    <label class="form-label">Images</label>
+                    <div class="image-container" id="image-container">
+                        {{ image_formset.management_form }}
+                        
+                        {% for form in image_formset %}
+                            <div class="image-preview" id="image-preview-{{ forloop.counter0 }}">
+                                <!-- Campos ocultos importantes -->
+                                {{ form.id }}
+                                {{ form.DELETE }}
+                                
+                                {% if form.instance.image %}
+                                    <img src="{{ form.instance.image.url }}" alt="Product Image">
+                                    <div class="image-actions">
+                                        <input type="radio" name="primary_image" value="{{ form.instance.id }}" 
+                                               {% if form.instance.is_primary %}checked{% endif %}
+                                               class="primary-radio">
+                                        <label class="primary-label">Primary</label>
+                                        <button type="button" class="remove-image" onclick="markImageForDeletion({{ forloop.counter0 }})">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                {% else %}
+                                    <div class="image-upload-field">
+                                        <label for="id_images-{{ forloop.counter0 }}-image">
+                                            <div class="upload-icon">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                            </div>
+                                            <span>Upload Image</span>
+                                        </label>
+                                        {{ form.image }}
+                                    </div>
+                                {% endif %}
+                                
+                                <!-- Campo is_primary oculto -->
+                                {{ form.is_primary }}
+                            </div>
+                        {% endfor %}
+                        
+                        <!-- Botón para añadir más imágenes si hay menos de 5 -->
+                        {% if image_formset.total_form_count < 5 %}
+                            <div class="image-upload" id="image-upload">
+                                <label for="new-image-input">
+                                    <div class="upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <span>Add New Image</span>
+                                </label>
+                                <input type="file" id="new-image-input" accept="image/*" hidden>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <p class="image-counter"><span id="image-count">{{ image_formset.total_form_count }}</span>/5 Images</p>
+                </div>
+                
+                <!-- Product Info -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="{{ form.name.id_for_label }}" class="form-label">Product Name</label>
+                        {{ form.name }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.description.id_for_label }}" class="form-label">Product Description</label>
+                        {{ form.description }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.category.id_for_label }}" class="form-label">Category</label>
+                        {{ form.category }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.weight.id_for_label }}" class="form-label">Weight (kg)</label>
+                        {{ form.weight }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.size.id_for_size }}" class="form-label">Size</label>
+                        {{ form.size }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.stock_per_box.id_for_label }}" class="form-label">Stock</label>
+                        {{ form.stock_per_box }}
+                    </div>
 
-            <span>Information</span>
-            <div class="field-info">
- 
-              <label for="Name">Product Name</label>
-              <input type="text-s" name="" class="input_field" placeholder="Example: Eco-friendly Tea cup"  id="">
-  
-            </div>
-            <div class="field-info">
-              <label for="Name">Product Description</label>
-              <input type="text-s" name="" class="input_field description"  placeholder="Describe the product within 200 characters" id="">
-            </div>
-            <div class="field-info">
-              <label for="Name">Price</label>
-              <input type="number" name="" class="price" placeholder="00.00$" step=".01" min="0" id="">
+                    <div class="form-group">
+                        <label for="{{ form.available.id_for_label }}" class="form-label">Available</label>
+                        {{ form.available }}
+                    </div>
+                </div>
+                
+                <!-- Providers Section -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <label class="form-label">Providers</label>
+                        <button type="button" id="add-provider" class="add-btn">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    
+                    <div id="providers-container">
+                        {{ supplier_formset.management_form }}
+                        
+                        {% for form in supplier_formset %}
+                            <div class="provider-card" id="provider-card-{{ forloop.counter0 }}">
+                                <!-- Campos ocultos importantes -->
+                                {{ form.id }}
+                                {{ form.DELETE }}
+                                
+                                <div class="provider-header">
+                                    <span>Provider {{ forloop.counter }}</span>
+                                    <button type="button" class="remove-provider" onclick="markProviderForDeletion({{ forloop.counter0 }})">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="provider-form">
+                                    <div class="form-group">
+                                        <label for="{{ form.supplier.id_for_label }}" class="form-label">Supplier</label>
+                                        {{ form.supplier }}
+                                    </div>
+                                    
+                                    <div class="provider-details">
+                                        <div class="form-group half">
+                                            <label for="{{ form.price.id_for_label }}" class="form-label">Price</label>
+                                            {{ form.price }}
+                                        </div>
+                                        <div class="form-group half">
+                                            <label for="{{ form.currency.id_for_label }}" class="form-label">Currency</label>
+                                            {{ form.currency }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="form-actions">
+                    <button type="submit" class="save-btn">SAVE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Template para nuevas imágenes -->
+    <template id="new-image-template">
+        <div class="image-preview" id="image-preview-__INDEX__">
+            <input type="hidden" name="images-__INDEX__-id" id="id_images-__INDEX__-id">
+            <input type="hidden" name="images-__INDEX__-DELETE" id="id_images-__INDEX__-DELETE">
+            <input type="hidden" name="images-__INDEX__-is_primary" id="id_images-__INDEX__-is_primary" value="false">
+            
+            <div class="image-upload-field">
+                <label for="id_images-__INDEX__-image">
+                    <img src="/placeholder.svg" alt="Preview" class="preview-img">
+                </label>
+                <input type="file" name="images-__INDEX__-image" id="id_images-__INDEX__-image" accept="image/*" style="display:none;">
             </div>
             
-
-          </div>
-          <hr>
-          <div>
-
-  <span>Features</span>
-<div class=>
-
-<div class="features">
-
-
-
-<div class="field">
-  <label for="Category">Category: </label>    
-<select name="" aria-placeholder=""  class="selector" id="">
-<option value="value1" selected>-Select a Category-</option>
-<option value="value2">Technology and Electronics</option>
-<option value="value3">Home Appliances</option>
-<option value="value4">Fashion and Accessories</option>
-<option value="value7">Home and Decoration</option>
-<option value="value8">Sports and Outdoor</option>
-<option value="value9">Toys and Games</option>
-<option value="value10">Health and Beauty</option>
-<option value="value11">Automotive and Tools</option>
-<option value="value12">Food and Beverages</option>
-<option value="value13">Stationery and Office</option>
-<option value="value14">Pets and Accessories</option>
-<option value="value15">Entertainment and Culture</option>
-<option value="value16">Industry and Business</option>
-<option value="value17">Travel and Luggage</option>
-<option value="value18">Home Electronics</option>
-</select>
-</div>
-
-<div class="field">
-  <label for="Providerr">Provider: </label>
-<select name="" id="" class="selector" >
-<option value="">- Select a provider -</option>
-<option value="">Provider 1</option>
-<option value="">Provider 2</option>
-<option value="">Provider 3</option>
-
-</select>
-</div>
-
-
-</div>
-</div> 
-
-
-<div class="f-containers">
-
-<div class="field">
-  <label for="Size">Size</label>
-  <input type="number" placeholder="20cm" class="input_field" name="" id="">
-</div>
-
-<div class="field">
-  <label for="Size">weight
-  </label>
-  <input type="number" placeholder="20kg" class="input_field" name="" id="">
-</div>
-
-<div class="field">
-  <label for="Size">Stock</label>
-  <input type="number" placeholder="20"  class="input_field" name="" id="">
-</div>
-  
-</div>
-<br>
-<div class="field">
-
-  <label for="color">Colors:</label>
-  <Input type="color" name="" id="">
-  
-  
-   </div>
-<div class="field"></div>
-<label for="Images">Images:</label>
-<label class="custum-file-upload" for="file">
-  <div class="icon">
-    <i class="fas fa-cloud-upload-alt"></i>
-  </div>
-  <div class="text-s">
-     <span>Click to change image</span>
-     </div>
-     <input type="file" id="file">
-  </label>
-  
- </div>
-
-
-          </div>  
-          <hr>
-          <div class="promo">
-            <div class=""> </div>
-
+            <div class="image-actions">
+                <input type="radio" name="primary_image" value="" class="primary-radio">
+                <label class="primary-label">Primary</label>
+                <button type="button" class="remove-image" onclick="markImageForDeletion(__INDEX__)">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </template>
+    
+    <!-- Template para nuevos proveedores -->
+    <template id="new-provider-template">
+        <div class="provider-card" id="provider-card-__INDEX__">
+            <input type="hidden" name="providers-__INDEX__-id" id="id_providers-__INDEX__-id">
+            <input type="hidden" name="providers-__INDEX__-DELETE" id="id_providers-__INDEX__-DELETE">
+            
+            <div class="provider-header">
+                <span>Provider</span>
+                <button type="button" class="remove-provider" onclick="markProviderForDeletion(__INDEX__)">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="provider-form">
+                <div class="form-group">
+                    <label for="id_providers-__INDEX__-supplier" class="form-label">Supplier</label>
+                    <select name="providers-__INDEX__-supplier" id="id_providers-__INDEX__-supplier" class="form-control">
+                        {% for supplier in suppliers %}
+                            <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="provider-details">
+                    <div class="form-group half">
+                        <label for="id_providers-__INDEX__-price" class="form-label">Price</label>
+                        <input type="number" name="providers-__INDEX__-price" id="id_providers-__INDEX__-price" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group half">
+                        <label for="id_providers-__INDEX__-currency" class="form-label">Currency</label>
+                        <select name="providers-__INDEX__-currency" id="id_providers-__INDEX__-currency" class="form-control">
+                            <option value="USD">USD</option>
+                            <option value="MXN">MXN</option>
+                            <option value="EUR">EUR</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
     
 
-            </form>
-          </div>
-
-        
-        </form></div>
-      </div>
-
-    <div class="card-form checkout">
-      <div class="footer">
-        <label class="price  checker">Edit Product </label>
-          <button class="checkout-btn">Save changes</button>
-      </div>
+    <div class="Navigation">
+        <label title="cart" for="cart" class="label">
+            <a href="/adminuser/adminpanel">
+            <input id="cart" name="page" type="radio"  />
+            <i class="fi fi-rr-dashboard-monitor"></i>
+        </a>
+        </label>
+        <label title="store" for="store" class="label">
+            <a href="/adminuser/adminproducts">
+            <input id="store" name="page" type="radio" checked="" />
+            <i class="fi fi-rr-boxes"></i>
+        </a>
+        </label>
+        <label title="home" for="home" class="label">
+            <a href="/adminuser/adminemployee">
+            <input id="home" name="page" type="radio" />
+            <i class="fi fi-rr-employee-man-alt"></i>
+        </a>
+        </label>
+        <label title="favorite" for="favorite" class="label">
+            <a href="/adminuser/adminsupplier">
+            <input id="favorite" name="page" type="radio" />
+            <i class="fi fi-rr-store-alt"></i>
+        </a>
+        </label>
+        <label title="notifications" for="notifications" class="label">
+            <a href="/adminuser/admincategories">
+            <input id="notifications" name="page" type="radio" />
+            <i class="fi fi-rr-objects-column"></i>
+            </a>
+        </label>
     </div>
-  </div>
-</div>
+    
 
-{% endblock %}
+    <!-- Cargar JavaScript externo -->
+    <script src="{% static 'js/product-edit.js' %}"></script>
+</body>
+</html>

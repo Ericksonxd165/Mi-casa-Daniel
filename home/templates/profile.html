@@ -5,118 +5,162 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="{% static '/css/header.css' %}">  <!-- estilos del header -->
+    <link rel="stylesheet" href="{% static '/css/header.css' %}">
     <link rel="stylesheet" href="{% static '/css/profile.css' %}"><!-- estilos del componente de home-->
     <link rel="stylesheet" href="{% static '/css/menu.css' %}"> <!-- estilos del menu-->
   
-
-    <!--CDN de iconos-->
-    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
-
-    <title>CorpoAsia - Account</title>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <!--CDN de iconos-->
+    <script src="{% static '/js/auth.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    
+    <title>MICASA - Account</title>
 </head>
 <body>
 
-  <header>
-    <a >
-        <div class="logo">
-            <h1>
-                <i>CORPOASIA</i><br><b>INVESTMENTS</b>
-              </h1>
-        </div>
+  <header class="main-header">
+    <a>
+      <div class="logo">
+        <h1>MICASA</h1>
+      </div>
     </a>
    
-
     <div class="site-placer">
-        <h1><i class="fa-solid fa-user"></i> Account</h1>
-      </div>
+ 
+    </div>
+  </header>
 
-   </header>
-
-
-
-
+  <div class="main-container-profile">
     <div class="profile-container">
-
-        <h1 class="profile-title">My Account</h1>
-    
+      <h1 class="profile-title">My Account</h1>
+      
+      <!-- Profile Tabs -->
+      <div class="profile-tabs">
+        <button class="tab-btn active" data-tab="profile-info">Profile Info</button>
+        <button class="tab-btn" data-tab="order-history">Order History</button>
+      </div>
+      
+      <!-- Profile Info Tab -->
+      <div class="tab-content active" id="profile-info-tab">
         <div class="profile-card" id="profileCard">
           <div class="profile-header">
             <div class="profile-avatar">
               <i class="fas fa-user"></i>
             </div>
             <div class="profile-name-container">
-              <h2 class="profile-name" id="userName">Wang Wei</h2>
+              <h2 class="profile-name" id="userName">Loading...</h2>
               <p class="profile-status">Active Customer</p>
             </div>
           </div>
-    
+
           <div class="profile-info">
             <div class="info-section">
               <h3 class="section-title">Personal Information</h3>
               <div class="info-item">
                 <span class="info-label">Full Name:</span>
-                <span class="info-value" id="fullName">Wang Wei</span>
+                <span class="info-value" id="fullName">Loading...</span>
               </div>
               <div class="info-item">
                 <span class="info-label">身份证号码 (ID):</span>
-                <span class="info-value" id="chineseId">110101199001011234</span>
+                <span class="info-value" id="chineseId">Loading...</span>
               </div>
               <div class="info-item">
-                <span class="info-label">Birth Date:</span>
-                <span class="info-value" id="birthDate">01/01/1990</span>
+                <span class="info-label">Country:</span>
+                <span class="info-value" id="country">Loading...</span>
               </div>
             </div>
-    
+
             <div class="info-section">
               <h3 class="section-title">Contact Information</h3>
               <div class="info-item">
                 <span class="info-label">Email:</span>
-                <span class="info-value" id="userEmail">wang.wei@example.com</span>
+                <span class="info-value" id="userEmail">Loading...</span>
               </div>
               <div class="info-item">
-                <span class="info-label">PhoneNumber:</span>
-                <span class="info-value" id="userPhone">+86 138 1234 5678</span>
+                <span class="info-label">Phone Number:</span>
+                <span class="info-value" id="userPhone">Loading...</span>
               </div>
               <div class="info-item">
                 <span class="info-label">WeChat ID:</span>
-                <span class="info-value" id="wechatId">wangwei_1990</span>
+                <span class="info-value" id="wechatId">Loading...</span>
               </div>
             </div>
-    
+
             <div class="info-section">
               <h3 class="section-title">Shipping Address</h3>
               <div class="info-item">
                 <span class="info-label">Province:</span>
-                <span class="info-value" id="province">Beijing</span>
+                <span class="info-value" id="province">Loading...</span>
               </div>
               <div class="info-item">
                 <span class="info-label">City:</span>
-                <span class="info-value" id="city">Beijing</span>
+                <span class="info-value" id="city">Loading...</span>
               </div>
               <div class="info-item">
                 <span class="info-label">Detailed address:</span>
-                <span class="info-value" id="address">Chaoyang District, Jianguo Road 88, Building 2, Apt 1503</span>
+                <span class="info-value" id="address">Loading...</span>
               </div>
               <div class="info-item">
                 <span class="info-label">Postal Code:</span>
-                <span class="info-value" id="postalCode">100022</span>
+                <span class="info-value" id="postalCode">Loading...</span>
+              </div>
+            </div>
+
+            <div class="info-section">
+              <h3 class="section-title">Payment Configuration</h3>
+              <div class="info-item">
+                <span class="info-label">Payment Method:</span>
+                <span class="info-value" id="paymentMethodDisplay" data-value="">Not configured</span>
+              </div>
+              <div id="paypalFieldsDisplay" style="display:none;">
+                <div class="info-item">
+                  <span class="info-label">Account Holder Name:</span>
+                  <span class="info-value" id="paypalAccountHolderNameDisplay">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Email:</span>
+                  <span class="info-value" id="paypalEmailDisplay">-</span>
+                </div>
+              </div>
+              <div id="bankTransferFieldsDisplay" style="display:none;">
+                <div class="info-item">
+                  <span class="info-label">Account Holder Name:</span>
+                  <span class="info-value" id="bankTransferAccountHolderNameDisplay">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Bank Name:</span>
+                  <span class="info-value" id="bankNameDisplay">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Account Number:</span>
+                  <span class="info-value" id="accountNumberDisplay">-</span>
+                </div>
+              </div>
+              <div id="cardFieldsDisplay" style="display:none;">
+                <div class="info-item">
+                  <span class="info-label">Account Holder Name:</span>
+                  <span class="info-value" id="cardAccountHolderNameDisplay">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Card Number:</span>
+                  <span class="info-value" id="cardNumberDisplay">-</span>
+                </div>
               </div>
             </div>
           </div>
-    
+
           <div class="profile-actions">
             <button class="btn secondary-btn" id="editProfileBtn">
               <i class="fas fa-edit"></i> Edit info
             </button>
-            <button class="btn danger-btn" id="logoutBtn">
-              <i class="fas fa-sign-out-alt"></i> Logout
-            </button>
+
           </div>
         </div>
-    
-        <!-- Formulario de edición (inicialmente oculto) -->
+
+        <!-- Edit form (initially hidden) -->
         <div class="edit-profile-form" id="editProfileForm" style="display: none;">
           <h2 class="form-title">Edit Profile</h2>
           
@@ -128,27 +172,24 @@
             </div>
             <div class="form-group">
               <label for="editChineseId">身份证号码 (ID):</label>
-              <input type="text" id="editChineseId" class="form-input">
+              <input type="text" id="editChineseId" class="form-input" >
             </div>
-            <div class="form-group">
-              <label for="editBirthDate">Birth Date:</label>
-              <input type="date" id="editBirthDate" class="form-input">
-            </div>
+            <!-- Country field will be added dynamically by JS -->
           </div>
-    
+
           <div class="form-section">
             <h3 class="section-title">Contact Information</h3>
             <div class="form-group">
               <label for="editEmail">Email:</label>
               <input type="email" id="editEmail" class="form-input">
             </div>
-   
+            <!-- Phone field will be added dynamically by JS -->
             <div class="form-group">
               <label for="editWechatId">WeChat ID:</label>
               <input type="text" id="editWechatId" class="form-input">
             </div>
           </div>
-    
+
           <div class="form-section">
             <h3 class="section-title">Shipping Address</h3>
             <div class="form-group">
@@ -160,7 +201,7 @@
               <input type="text" id="editCity" class="form-input">
             </div>
             <div class="form-group">
-              <label for="editAddress">Detailed <address></address>:</label>
+              <label for="editAddress">Detailed address:</label>
               <textarea id="editAddress" class="form-textarea"></textarea>
             </div>
             <div class="form-group">
@@ -168,37 +209,588 @@
               <input type="text" id="editPostalCode" class="form-input">
             </div>
           </div>
-    
+
+          <div class="form-section">
+            <h3 class="section-title">Payment Configuration</h3>
+            <div class="form-group">
+              <label for="editPaymentMethod">Payment Method:</label>
+              <select id="editPaymentMethod" class="form-input">
+                <option value="" disabled selected>Select a payment method</option>
+                <option value="paypal">PayPal</option>
+                <option value="bank_transfer">Bank Transfer</option>
+                <option value="card">Credit Card</option>
+              </select>
+            </div>
+
+            <div id="editPaypalFields" style="display:none;">
+              <div class="form-group">
+                <label for="editPaypalAccountHolderName">Account Holder Name:</label>
+                <input type="text" id="editPaypalAccountHolderName" class="form-input">
+              </div>
+              <div class="form-group">
+                <label for="editPaypalEmail">Email:</label>
+                <input type="email" id="editPaypalEmail" class="form-input">
+              </div>
+            </div>
+
+            <div id="editBankTransferFields" style="display:none;">
+              <div class="form-group">
+                <label for="editBankTransferAccountHolderName">Account Holder Name:</label>
+                <input type="text" id="editBankTransferAccountHolderName" class="form-input">
+              </div>
+              <div class="form-group">
+                <label for="editBankName">Bank Name:</label>
+                <input type="text" id="editBankName" class="form-input">
+              </div>
+              <div class="form-group">
+                <label for="editAccountNumber">Account Number:</label>
+                <input type="text" id="editAccountNumber" class="form-input">
+              </div>
+            </div>
+
+            <div id="editCardFields" style="display:none;">
+              <div class="form-group">
+                <label for="editCardAccountHolderName">Account Holder Name:</label>
+                <input type="text" id="editCardAccountHolderName" class="form-input">
+              </div>
+              <div class="form-group">
+                <label for="editCardNumber">Card Number:</label>
+                <input type="text" id="editCardNumber" class="form-input">
+              </div>
+            </div>
+          </div>
+
           <div class="form-actions">
             <button class="btn primary-btn" id="saveProfileBtn">Save Changes</button>
             <button class="btn secondary-btn" id="cancelEditBtn">Cancel</button>
           </div>
         </div>
       </div>
-      <div id="page" class="site">
-        <div class="container">
-            <nav>
-                <input type="checkbox" id="link" hidden>
-                <label for="link" class="link">
-                    <i class="menu fa-solid fa-bars-staggered"></i>
-                    <i class="close fa-solid fa-xmark"></i>
-                </label>
-    
-                <!-- Overlay oscuro -->
-                <div class="overlay"></div>
-    
-                <ul class="submenu">
-                    <li><a class="h-link" href="scanner.html"><span>ScanQR</span> <i class="fa-solid fa-qrcode i-tag"></i></a></li>
-                    <li><a class="h-link" href="catalog.html"><span>Catalog</span> <i class="fa-solid fa-book-open i-tag"></i></a></li>
-                    <li><a class="h-link" href="home.html"><span>Home</span> <i class="fa-solid fa-house i-tag"></i></a></li>
-                    <li><a class="h-link" href="cart.html"><span>Cart</span> <i class="fa-solid fa-cart-shopping i-tag"></i></a></li>
-                    <li><a class="h-link" href="account.html"><span>Account</span> <i class="fa-solid fa-user i-tag"></i></a></li>
-                </ul>
-            </nav>
+      
+      <!-- Order History Tab -->
+      <div class="tab-content" id="order-history-tab">
+        <div class="order-history-section" id="orderHistorySection">
+          <!-- Order history will be loaded dynamically -->
+          <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading your order history...</p>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+
+  <div class="nav-shadow-wrapper">
+
+    <div class="Navigation">
+
+        <label title="Cart" for="cart" class="label">
+            <a href="/carrito">
+                <input id="cart" name="page" type="radio"/>
+                <i class="fi fi-rr-shopping-cart"></i>
+            </a>
+        </label>
+
+        <label title="Shop" for="store" class="label">
+            <a href="/shop/">
+                <input id="store" name="page" type="radio"/>
+                <i class="fi fi-rr-catalog-magazine"></i>
+            </a>
+        </label>
+
+        <label title="Home" for="home" class="label" >
+            <a href="/home/">
+                <input id="home" name="page" type="radio"/>
+                <i class="fi fi-rr-house-chimney"></i>
+            </a>
+        </label>
+
+        <label title="Scanner" for="favorite" class="label">
+            <a href="/scanner">
+                <input id="favorite" name="page" type="radio"/>
+                <i class="fi fi-rr-camera-viewfinder"></i>
+            </a>
+        </label>
+
+        <label title="Profile" for="notifications" class="label">
+            <a href="/profile/">
+                <input id="notifications" name="page" type="radio"/>
+                <i class="fi fi-rr-user"></i>
+            </a>
+        </label>
+        
+    </div>
+    
+</div>
 
 
+  <!-- Additional CSS for order history 
+  <style>
+    /* Profile Tabs */
+    .profile-tabs {
+      display: flex;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--gray-light);
+    }
+    
+    .tab-btn {
+      padding: 10px 20px;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--gray-dark);
+      transition: all 0.3s;
+    }
+    
+    .tab-btn.active {
+      color: var(--primary-color);
+      border-bottom-color: var(--primary-color);
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    /* Order History */
+    .order-history-section {
+      background-color: var(--white);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .empty-history {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--gray);
+    }
+    
+    .empty-history i {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    
+    .orders-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .order-item {
+      border: 1px solid var(--gray-light);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      background-color: #f9f9f9;
+      border-bottom: 1px solid var(--gray-light);
+    }
+    
+    .order-id {
+      font-weight: 600;
+      display: block;
+    }
+    
+    .order-date {
+      font-size: 12px;
+      color: var(--gray);
+    }
+    
+    .order-status {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    .order-status.pending {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    
+    .order-status.processing {
+      background-color: #cce5ff;
+      color: #004085;
+    }
+    
+    .order-status.shipped {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    
+    .order-status.delivered {
+      background-color: #d1e7dd;
+      color: #0f5132;
+    }
+    
+    .order-status.cancelled {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    
+    .order-details {
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .order-actions {
+      padding: 16px;
+      display: flex;
+      gap: 8px;
+      border-top: 1px solid var(--gray-light);
+    }
+    
+    .view-order-btn, .download-invoice-btn {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+    
+    .loading-spinner {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--gray);
+    }
+    
+    .loading-spinner i {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    
+    @media (max-width: 768px) {
+      .order-header, .order-details {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .order-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+-->
+  
+  <!-- Tab switching script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Remove active class from all buttons and contents
+          tabBtns.forEach(b => b.classList.remove('active'));
+          tabContents.forEach(c => c.classList.remove('active'));
+          
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          // Show corresponding content
+          const tabId = this.getAttribute('data-tab');
+          document.getElementById(`${tabId}-tab`).classList.add('active');
+        });
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+    // Definición de reglas de validación para cada campo
+    const validaciones = {
+        // Campos de información personal
+        editFullName: {
+            regex: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
+            mensaje: "Only letters and spaces allowed",
+            condition: value => value.length > 2
+        },
+        editChineseId: {
+            regex: /^[A-Za-z0-9]+$/,  
+            mensaje: "Only regular Characters)",
+            condition: value => true
+        },
+        
+        // Contacto
+        editEmail: {
+            regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            mensaje: "Invalid email format",
+            condition: value => true
+        },
+        editUserPhone: {
+            regex: /^(13|16|18)\d{9}$/,
+            mensaje: "Only Chinesse numbers allowed",
+            condition: value => value.length === 11
+        },
+        editWechatId: {
+            regex: /^[A-Za-z0-9_-]+$/,
+            mensaje: "Only wee chat ID allowed",
+            condition: value => true
+        },
+        
+        // Dirección
+        editProvince: {
+            regex: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
+            mensaje: "Only text allowed",
+            condition: value => true
+        },
+        editCity: {
+            regex: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
+            mensaje: "Only text allowed",
+            condition: value => true
+        },
+        editPostalCode: {
+            regex: /^\d+$/,
+            mensaje: "Only Numbers allowed",
+            condition: value => true
+        },
+        
+        // Campos de pagos
+        editPaypalAccountHolderName: {
+            regex: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
+            mensaje: "Only letters and spaces allowed",
+            condition: value => value.length > 2
+        },
+        editPaypalEmail: {
+            regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            mensaje: "Invalid Email format",
+            condition: value => true
+        },
+        editBankTransferAccountHolderName: {
+            regex: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
+            mensaje: "Only letters and spaces allowed",
+            condition: value => value.length > 2
+        },
+        editBankName: {
+            regex: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s.]+$/,
+            mensaje: "Only text allowd",
+            condition: value => true
+        },
+        editAccountNumber: {
+            regex: /^[0-9]+$/,
+            mensaje: "Only Numbers allowed",
+            condition: value => true
+        },
+        editCardAccountHolderName: {
+            regex: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
+            mensaje: "Only letters and spaces allowed",
+            condition: value => value.length > 2
+        },
+        editCardNumber: {
+            regex: /^[0-9]{13,19}$/,
+            mensaje: "Only valid card number",
+            condition: value => true
+        }
+    };
+
+    // Crear elementos de mensaje de error para cada campo si no existen
+    const crearMensajesError = () => {
+        Object.keys(validaciones).forEach(id => {
+            const input = document.getElementById(id);
+            if (!input) return;
+            
+            // Verificar si ya existe un mensaje de error
+            let errorId = `${id}Error`;
+            let errorElement = document.getElementById(errorId);
+            
+            if (!errorElement) {
+                // Crear el elemento span para mostrar mensajes
+                errorElement = document.createElement('span');
+                errorElement.id = errorId;
+                errorElement.className = 'error-message';
+                errorElement.style.display = 'block';
+                errorElement.style.fontSize = '0.8em';
+                errorElement.style.marginTop = '5px';
+                errorElement.style.color = '#666';
+                errorElement.textContent = validaciones[id].mensaje;
+                
+                // Insertar después del input
+                input.parentNode.insertBefore(errorElement, input.nextSibling);
+            }
+        });
+    };
+
+    // Función para validar un campo específico
+    const validarCampo = (id) => {
+        const input = document.getElementById(id);
+        if (!input) return true; // Si no existe el elemento, no bloqueamos
+
+        const valor = input.value.trim();
+        const config = validaciones[id];
+        
+        // Si está vacío, no aplicamos validación (se puede manejar con 'required' si es necesario)
+        if (valor === '') return true;
+        
+        // Evaluar la expresión regular
+        const regex = eval(config.regex);
+        return regex.test(valor) && config.condition(valor);
+    };
+
+    // Aplicar estilos según validación
+    const aplicarEstilosError = (elemento, valido) => {
+        const errorSpan = document.getElementById(`${elemento.id}Error`);
+        if (!errorSpan) return;
+
+        if (elemento.value.trim() === '') {
+            // Campo vacío
+            errorSpan.textContent = validaciones[elemento.id].mensaje;
+            errorSpan.style.color = '#666';
+            elemento.style.borderColor = '#ccc';
+            return;
+        }
+
+        if (valido) {
+            errorSpan.textContent = '✓ Valid';
+            errorSpan.style.color = 'green';
+            elemento.style.borderColor = 'green';
+        } else {
+            errorSpan.textContent = validaciones[elemento.id].mensaje;
+            errorSpan.style.color = 'red';
+            elemento.style.borderColor = 'red';
+            
+            // Efecto de shake para indicar error
+            elemento.classList.add('invalid');
+            setTimeout(() => elemento.classList.remove('invalid'), 500);
+        }
+    };
+
+    // Mostrar el método de pago correspondiente
+    const togglePaymentFields = () => {
+        const paymentMethod = document.getElementById('editPaymentMethod').value;
+        
+        document.getElementById('editPaypalFields').style.display = 'none';
+        document.getElementById('editBankTransferFields').style.display = 'none';
+        document.getElementById('editCardFields').style.display = 'none';
+        
+        if (paymentMethod === 'paypal') {
+            document.getElementById('editPaypalFields').style.display = 'block';
+        } else if (paymentMethod === 'bank_transfer') {
+            document.getElementById('editBankTransferFields').style.display = 'block';
+        } else if (paymentMethod === 'card') {
+            document.getElementById('editCardFields').style.display = 'block';
+        }
+    };
+
+    // Inicialización
+    crearMensajesError();
+
+    // Añadir estilos para animación de error
+    const style = document.createElement('style');
+    style.textContent = `
+        .invalid {
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        .error-message {
+            transition: all 0.3s ease;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Asignar eventos a los campos
+    Object.keys(validaciones).forEach(id => {
+        const input = document.getElementById(id);
+        if (!input) return;
+        
+        input.addEventListener('input', function() {
+            const valido = validarCampo(id);
+            aplicarEstilosError(this, valido);
+        });
+        
+        input.addEventListener('blur', function() {
+            const valido = validarCampo(id);
+            aplicarEstilosError(this, valido);
+        });
+    });
+
+    // Configurar evento para cambio de método de pago
+    const paymentMethodSelect = document.getElementById('editPaymentMethod');
+    if (paymentMethodSelect) {
+        paymentMethodSelect.addEventListener('change', togglePaymentFields);
+    }
+
+    // Validación del formulario completo
+    const editForm = document.getElementById('editProfileForm');
+    if (editForm) {
+        // Deshabilitar validación HTML5 nativa
+        editForm.setAttribute('novalidate', 'novalidate');
+        
+        // Evento de envío del formulario
+        editForm.addEventListener('submit', function(event) {
+            let formValido = true;
+            let primerErrorCampo = null;
+            
+            // Validar todos los campos
+            Object.keys(validaciones).forEach(id => {
+                const input = document.getElementById(id);
+                if (!input) return;
+                
+                // Solo validar campos visibles
+                if (input.offsetParent !== null) {
+                    const valido = validarCampo(id);
+                    aplicarEstilosError(input, valido);
+                    
+                    if (!valido && !primerErrorCampo) {
+                        primerErrorCampo = input;
+                        formValido = false;
+                    }
+                }
+            });
+            
+            // Si hay errores, detener envío y enfocar primer campo con error
+            if (!formValido) {
+                event.preventDefault();
+                if (primerErrorCampo) {
+                    primerErrorCampo.focus();
+                }
+            }
+        });
+    }
+
+    // Botón Guardar Cambios
+    const saveProfileBtn = document.getElementById('saveProfileBtn');
+    if (saveProfileBtn) {
+        saveProfileBtn.addEventListener('click', function(event) {
+            let formValido = true;
+            
+            // Validar todos los campos
+            Object.keys(validaciones).forEach(id => {
+                const input = document.getElementById(id);
+                if (!input || input.offsetParent === null) return; // Ignorar campos ocultos
+                
+                const valido = validarCampo(id);
+                aplicarEstilosError(input, valido);
+                
+                if (!valido) {
+                    formValido = false;
+                }
+            });
+            
+            if (formValido) {
+                console.log('Formulario válido, guardando cambios...');
+                // Aquí iría el código para guardar los cambios
+            } else {
+                console.warn('Hay errores en el formulario. Por favor, corrígelos.');
+                event.preventDefault();
+            }
+        });
+    }
+});
+  </script>
+
+  <!-- Load the profile.js script at the end of the body -->
+  <script src="../static/js/brillo.js"></script>
+  <script src="{% static '/js/profile.js' %}"></script>
 </body>
-<script src="{% static '/js/profile.js' %}"></script>
 </html>

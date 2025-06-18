@@ -1,0 +1,368 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - MICASA</title>
+    
+    <link rel="stylesheet" href="{% static '/css/header.css' %}">
+    <link rel="stylesheet" href="{% static '/css/profile.css' %}">
+    <link rel="stylesheet" href="{% static '/css/menu.css' %}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    
+    <!-- Include jsPDF from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    
+    <script src="{% static '/js/auth.js' %}"></script>
+</head>
+<body>
+    <header class="main-header">
+        <a>
+            <div class="logo">
+                <h1>MICASA</h1>
+            </div>
+        </a>
+        
+        <div class="site-placer">
+      
+        </div>
+    </header>
+    
+    <div class="main-container-profile">
+        <div class="profile-container">
+            <div class="checkout-header">
+                <h1 class="profile-title">Order Summary</h1>
+                <div class="order-id-container">
+                    <span class="order-id-label">Order ID:</span>
+                    <span class="order-id-value" id="orderIdDisplay">Generating...</span>
+                </div>
+            </div>
+            
+            <div class="checkout-content">
+                <!-- Order Items Section -->
+                <div class="checkout-section">
+                    <h3 class="section-title">Order Items</h3>
+                    <div class="order-items" id="orderItems">
+                        <!-- Order items will be loaded dynamically -->
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading your order items...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Customer Information Section -->
+                <div class="checkout-section">
+                    <h3 class="section-title">Customer Information</h3>
+                    <div class="customer-info">
+                        <div class="info-column">
+                            <div class="info-group">
+                                <h4 class="info-title">Personal Details</h4>
+                                <div class="info-item">
+                                    <span class="info-label">Name:</span>
+                                    <span class="info-value" id="customerName">Loading...</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">ID:</span>
+                                    <span class="info-value" id="customerId">Loading...</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Email:</span>
+                                    <span class="info-value" id="customerEmail">Loading...</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Phone:</span>
+                                    <span class="info-value" id="customerPhone">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-column">
+                            <div class="info-group">
+                                <h4 class="info-title">Shipping Address</h4>
+                                <div class="info-item">
+                                    <span class="info-label">Country:</span>
+                                    <span class="info-value" id="shippingCountry">Loading...</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Province:</span>
+                                    <span class="info-value" id="shippingProvince">Loading...</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">City:</span>
+                                    <span class="info-value" id="shippingCity">Loading...</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Address:</span>
+                                    <span class="info-value" id="shippingAddress">Loading...</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Postal Code:</span>
+                                    <span class="info-value" id="shippingPostalCode">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Payment Information Section -->
+                <div class="checkout-section">
+                    <h3 class="section-title">Payment Information</h3>
+                    <div class="payment-info">
+                        <div class="info-item">
+                            <span class="info-label">Payment Method:</span>
+                            <span class="info-value" id="paymentMethod">Loading...</span>
+                        </div>
+                        <div id="paymentDetails">
+                            <!-- Payment details will be loaded dynamically based on the payment method -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order Summary Section -->
+                <div class="checkout-section">
+                    <h3 class="section-title">Order Total</h3>
+                    <div class="order-summary">
+                        <div class="summary-row">
+                            <span class="summary-label">Subtotal:</span>
+                            <span class="summary-value" id="subtotal">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Shipping:</span>
+                            <span class="summary-value" id="shipping">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Tax:</span>
+                            <span class="summary-value" id="tax">$0.00</span>
+                        </div>
+                        <div class="summary-row total-row">
+                            <span class="summary-label">Total:</span>
+                            <span class="summary-value" id="total">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Actions Section -->
+                <div class="checkout-actions">
+                    <button class="btn secondary-btn" id="backToShopBtn">
+                        <i class="fas fa-arrow-left"></i> Back to Shop
+                    </button>
+                    <button class="btn primary-btn" id="downloadInvoiceBtn">
+                        <i class="fas fa-file-download"></i> Download Invoice
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="nav-shadow-wrapper">
+
+        <div class="Navigation">
+    
+            <label title="Cart" for="cart" class="label">
+                <a href="/carrito">
+                    <input id="cart" name="page" type="radio"/>
+                    <i class="fi fi-rr-shopping-cart"></i>
+                </a>
+            </label>
+    
+            <label title="Shop" for="store" class="label">
+                <a href="/shop/">
+                    <input id="store" name="page" type="radio"/>
+                    <i class="fi fi-rr-catalog-magazine"></i>
+                </a>
+            </label>
+    
+            <label title="Home" for="home" class="label" >
+                <a href="/home/">
+                    <input id="home" name="page" type="radio"/>
+                    <i class="fi fi-rr-house-chimney"></i>
+                </a>
+            </label>
+    
+            <label title="Scanner" for="favorite" class="label">
+                <a href="/scanner">
+                    <input id="favorite" name="page" type="radio"/>
+                    <i class="fi fi-rr-camera-viewfinder"></i>
+                </a>
+            </label>
+    
+            <label title="Profile" for="notifications" class="label">
+                <a href="/profile/">
+                    <input id="notifications" name="page" type="radio"/>
+                    <i class="fi fi-rr-user"></i>
+                </a>
+            </label>
+            
+        </div>
+        
+    </div>
+    
+    
+    <!-- Additional CSS for checkout page -->
+    <style>
+        .checkout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .order-id-container {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+        
+        .order-id-label {
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .checkout-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .order-items {
+            margin-top: 16px;
+        }
+        
+        .order-item {
+            display: flex;
+            border-bottom: 1px solid var(--gray-light);
+            padding: 16px 0;
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 16px;
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .item-details {
+            flex: 1;
+        }
+        
+        .item-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .item-supplier {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+        
+        .item-price-qty {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .item-quantity {
+            background-color: var(--gray-light);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .item-price {
+            font-weight: 600;
+        }
+        
+        .customer-info {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .info-column {
+            flex: 1;
+        }
+        
+        .info-group {
+            margin-bottom: 16px;
+        }
+        
+        .info-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+        }
+        
+        .order-summary {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .total-row {
+            border-top: 1px solid var(--gray-light);
+            margin-top: 8px;
+            padding-top: 8px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .checkout-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .checkout-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .customer-info {
+                flex-direction: column;
+            }
+            
+            .checkout-actions {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+    
+    <!-- Checkout JavaScript -->
+    <script src="../static/js/brillo.js"></script>
+    <script src="{% static '/js/checkout.js' %}"></script>
+</body>
+</html>

@@ -1,148 +1,56 @@
+{% load static %}
 <!DOCTYPE html>
-
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MI CASA</title>
+    <link rel="stylesheet" href="{% static '/css/index-home.css' %}"> 
+
+
+</head>
+<body>
     
-    <head>
 
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../static/css/sing-up.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
-        <title>Corpoasia -Sign Up</title>
+    <div class="welcome-title">
+        <br>
+        <h1 class="welcome-title-message" ><b>MICASA</b></h1>
+<br>
+<div class="dot-spinner">
+    <div class="dot-spinner__dot"></div>
+    <div class="dot-spinner__dot"></div>
+    <div class="dot-spinner__dot"></div>
+    <div class="dot-spinner__dot"></div>
+    <div class="dot-spinner__dot"></div>
+    <div class="dot-spinner__dot"></div>
+    <div class="dot-spinner__dot"></div>
+    <div class="dot-spinner__dot"></div>
+</div>
+<br>
+    </div>
 
-    </head>
 
-    <body>
 
-        <div class="Container">
 
-            <form class="Form-Box" id="Form-Sign-Up" novalidate autocomplete="off">
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(function() {
 
-                <div class="Form-Header">
-                    <span>Sign Up Customers</span>
-                </div>
-
-                <div class="Input-Box">
-                    <select id="Country" name="Country" class="Input-Field" required>
-                        <option value="" disabled selected></option>
-                    </select>
-                    <label for="Country" class="label">Country</label>
-                    <i class="bx bx-globe Icon"></i>
-                </div>
-
-                <div class="Input-Box">
-                    <input type="text" id="Phone-Number" name="Phone-Number" class="Input-Field" required maxlength="11">
-                    <label for="Phone-Number" class="label">Phone Number</label>
-                    <i class="bx bx-phone Icon"></i>
-                </div>
-
-                <div class="Input-Enter">
-                    <button type="submit" class="Btn">Send code.</button>
-                </div>
-
-                <div class="Comment">
-                    <span><a href="#">Go back.</a></span>    
-                </div>
-
-            </form>
-
-        </div>
-
-        <dialog id="errorDialog">
-            <p id="errorMessage"></p>
-            <button onclick="document.getElementById('errorDialog').close()">OK</button>
-        </dialog>
-
-        <script>
-
-            document.getElementById("Form-Sign-Up").addEventListener("submit", function (event) {
-                const fields = [
-                    { id: "Country", msg: "Please select a country." },
-                    { id: "Phone-Number", minLength: 11, msg: "Phone number must have at least 11 characters." }
-                ];
-
-                let errorDialog = document.getElementById("errorDialog");
-                let errorMessage = document.getElementById("errorMessage");
-
-                for (let field of fields) {
-                    let value = document.getElementById(field.id).value;
-
-                    if (field.id === "Country" && value === "") {
-                        errorMessage.textContent = field.msg;
-                        errorDialog.showModal();
-                        document.getElementById(field.id).focus();
-                        event.preventDefault();
-                        return;
-                    }
-
-                    if (field.minLength && value.length < field.minLength) {
-                        errorMessage.textContent = field.msg;
-                        errorDialog.showModal();
-                        document.getElementById(field.id).focus();
-                        event.preventDefault();
-                        return;
-                    }
-                }
-
-                let phoneNumber = document.getElementById("Phone-Number").value;
-
-                const chinesePhoneRegex = /^1[3568]\d{9}$/;
-
-                if (!chinesePhoneRegex.test(phoneNumber)) {
-                    errorMessage.textContent = "Please enter a valid Chinese phone number.";
-                    errorDialog.showModal();
-                    document.getElementById("Phone-Number").focus();
-                    event.preventDefault();
-                }
-
-            });
-
-            document.getElementById("Country").addEventListener("input", function () {
-                this.value = this.value.replace(/\d/g, "");
-            });
-
-            document.getElementById("Phone-Number").addEventListener("input", function () {
-                this.value = this.value.replace(/\D/g, "").slice(0, this.maxLength);
-            });
-
-            document.addEventListener("DOMContentLoaded", function () {
-                const countries = [
-                    "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia",
-                    "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium",
-                    "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria",
-                    "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad",
-                    "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)", "Costa Rica", "Croatia", "Cuba", "Cyprus",
-                    "Czechia (Czech Republic)", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica",
-                    "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini",
-                    "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada",
-                    "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia",
-                    "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati",
-                    "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania",
-                    "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania",
-                    "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique",
-                    "Myanmar (Burma)", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria",
-                    "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine State", "Panama", "Papua New Guinea",
-                    "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis",
-                    "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia",
-                    "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia",
-                    "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland",
-                    "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia",
-                    "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States",
-                    "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
-                ];
-
-                let select = document.getElementById("Country");
-
-                countries.forEach(country => {
-                    let option = document.createElement("option");
-                    option.value = country;
-                    option.textContent = country;
-                    select.appendChild(option);
-                });
-            });
-
-        </script>
-
-    </body>
-
+            // Check if user has required authentication data
+            const phone = localStorage.getItem("phone")
+            const country = localStorage.getItem("country")
+          
+            if (!phone || !country) {
+              // Redirect to login page if authentication data is missing
+              window.location.href = "/login"
+            }
+            else {
+              // Redirect to home page if authentication data is present
+              window.location.href = "/home"
+            }
+          })
+           // Redirect to the home page after 3 seconds
+    }, 2000); // 3000 milliseconds = 3 seconds
+</script>
 </html>

@@ -16,31 +16,34 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 
-    <title>Corpoasia - Product</title>
+
+    <script src="{% static '/js/auth.js' %}"></script>
+
+    <title>MICASA - Product</title>
 </head>
 <body>
-    <header>
-        <a >
+    
+    <header class="main-header"
+        <a>
             <div class="logo">
-                <h1>
-                    <i>CORPOASIA</i><br><b>INVESTMENTS</b>
-                  </h1>
+              <h1>MICASA</h1>
             </div>
-        </a>
-       
+          </a>
     
         <div class="site-placer">
-            <h1><i class="fa-solid fa-basket-shopping"></i> Product</h1>
+      
           </div>
     
        </header>
 
        <a href="/scanner" id="back-arrow">
         <button class="back-button">
-            <span><i class="fa-solid fa-arrow-left"></i>  Scann more</span>
+            <i class='bx bx-qr-scan'></i>
         </button>
       </a>
 
+
+      
 
        <div class="main-banner">
         <div class = "main-wrapper">
@@ -93,7 +96,7 @@
             
             <div class="product-specs">
                 <b>Size:</b>
-                <span>{{ product.size }}</span><br>
+                <span>{{ product.size }} cm</span><br>
             </div>
             <div class="product-specs">
                 <b>Weight: </b>
@@ -165,32 +168,51 @@
 
 
 
-      <div class="Navigation">
+      <div class="nav-shadow-wrapper">
 
-        <label title="cart" for="cart" class="label">
-            <input id="cart" name="page" type="radio" checked="" />
-            <i class="fi fi-rr-shopping-cart"></i>
-        </label>
-        <label title="store" for="store" class="label">
-            <input id="store" name="page" type="radio" />
-            <i class="fi fi-rr-catalog-magazine"></i>
+        <div class="Navigation">
+    
+            <label title="Cart" for="cart" class="label">
+                <a href="/carrito">
+                    <input id="cart" name="page" type="radio"/>
+                    <i class="fi fi-rr-shopping-cart"></i>
+                </a>
             </label>
-        <label title="home" for="home" class="label">
-            <input id="home" name="page" type="radio"  />
-            <i class="fi fi-rr-house-chimney"></i>
-        </label>
     
-        <label title="favorite" for="favorite" class="label">
-            <input id="favorite" name="page" type="radio" />
-            <i class="fi fi-rr-camera-viewfinder"></i>
-        </label>
-        <label title="notifications" for="notifications" class="label">
-            <input id="notifications" name="page" type="radio" />
-            <i class="fi fi-rr-user"></i>
-        </label>
+            <label title="Shop" for="store" class="label">
+                <a href="/shop/">
+                    <input id="store" name="page" type="radio"/>
+                    <i class="fi fi-rr-catalog-magazine"></i>
+                </a>
+            </label>
+    
+            <label title="Home" for="home" class="label" >
+                <a href="/home/">
+                    <input id="home" name="page" type="radio"/>
+                    <i class="fi fi-rr-house-chimney"></i>
+                </a>
+            </label>
+    
+            <label title="Scanner" for="favorite" class="label">
+                <a href="/scanner">
+                    <input id="favorite" name="page" type="radio"/>
+                    <i class="fi fi-rr-camera-viewfinder"></i>
+                </a>
+            </label>
+    
+            <label title="Profile" for="notifications" class="label">
+                <a href="/profile/">
+                    <input id="notifications" name="page" type="radio"/>
+                    <i class="fi fi-rr-user"></i>
+                </a>
+            </label>
+            
+        </div>
+        
     </div>
-    
+
 
 </body>
+<script src="../../../static/js/brillo.js"></script>
 <script src="{% static '/js/product.js' %}"></script>
 </html>

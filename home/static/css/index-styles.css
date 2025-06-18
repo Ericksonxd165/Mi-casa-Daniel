@@ -1,70 +1,80 @@
-@charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
+/* Estilos Globales 
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+*/
 
-/* styles.css */
+@font-face {
+	font-family: "HandelGothic";
+	font-style: normal;
+	font-weight: normal;
+	src: local("HandelGothic"),
+		url("../webfonts/HandelGothic\ TL\ Kirillica.woff") format("woff");
+}
+
 body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif; 
-    overflow: hidden; /* Avoid scrolling while the alert is active */
+	margin: 0;
+	font-family: "HandelGothic";
+	overflow: hidden; /* Avoid scrolling while the alert is active */
 }
 
 .bg-image {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('/../images/world.jpg'); /* The background image */
-    background-size: cover;
-    background-position: center;
-    z-index: -1; /* Send image to background */
-    filter: blur(1.5px); /* Blur effect */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url("/../images/world.jpg"); /* The background image */
+	background-size: cover;
+	background-position: center;
+	z-index: -1; /* Send image to background */
+	filter: blur(1.5px); /* Blur effect */
 }
 
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Ensures that the modal is above */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000; /* Ensures that the modal is above */
 }
 
 .modal-contenido {
-    background-color: rgba(241, 241, 241, 0.7); /* Semitransparent background */
-    padding: 20px;
-    width: 300px;
-    height: 200px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 0px 10px rgba(24, 24, 24, 0.8); /* Shadow with opacity */
+	background-color: rgba(241, 241, 241, 0.7); /* Semitransparent background */
+	padding: 20px;
+	width: 300px;
+	height: 200px;
+	border-radius: 8px;
+	text-align: center;
+	box-shadow: 0 0px 10px rgba(24, 24, 24, 0.8); /* Shadow with opacity */
 }
 
 /* Botones */
 .button {
-    display: inline-block; /* Adjusts the size of the button */
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 14px;
-    height: 40px;
-    line-height: 40px;
-    text-transform: capitalize;
-    color: #eeeeee;
-    border: none; /* Borderless */
-    letter-spacing: 0.25px;
-    background: #081e5b; /* Background color */
-    cursor: pointer; /* Change cursor on mouse hover */
-    margin: 10px; /* Separate buttons */
+	display: inline-block; /* Adjusts the size of the button */
+	padding-left: 20px;
+	padding-right: 20px;
+	border-radius: 20px;
+	font-weight: 600;
+	font-size: 14px;
+	height: 40px;
+	line-height: 40px;
+	text-transform: capitalize;
+	color: #eeeeee;
+	border: none; /* Borderless */
+	letter-spacing: 0.25px;
+	background: #081e5b; /* Background color */
+	cursor: pointer; /* Change cursor on mouse hover */
+	margin: 10px; /* Separate buttons */
 }
 
 .button:hover {
-    transform: scale(1.05); /* Slightly increase size on mouse hover */
-    color: #f1f1f1;
-    box-shadow: 0 0 10px #ebebeb;
-    background: #0e2d81; /* Background color in hover */
+	transform: scale(1.05); /* Slightly increase size on mouse hover */
+	color: #f1f1f1;
+	box-shadow: 0 0 10px #ebebeb;
+	background: #0e2d81; /* Background color in hover */
 }

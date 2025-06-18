@@ -1,268 +1,335 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-/* Colores 
-1er color:  #081E5B;
-2do color:  #47A2B1;
+/* Estilos Globales 
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 */
 
-body{
-    /* background-image: linear-gradient(120deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), url("../Img/Fondo-Reg-Login.jpg"); */
-    background-image: url("../images/Fondo-Reg-Login.jpg");
-    background-position: center;
-    backdrop-filter: blur(8px);
-    background-size: cover;
-    background-repeat: no-repeat;
-    justify-content: center;
-    display: flex;
-    min-height: 100vh;
+@font-face {
+	font-family: "HandelGothic";
+	font-style: normal;
+	font-weight: normal;
+	src: local("HandelGothic"),
+		url("../webfonts/HandelGothic\ TL\ Kirillica.woff") format("woff");
 }
 
-a{
-    text-decoration: none;
-    color: #ffffff;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "HandelGothic";
 }
 
-a:hover{
-    text-decoration: underline;
+:root {
+	--primary: #ffd720;
+	--black: #000000;
+	--black-light: #393939;
+	--white: #ffffff;
+	--hover: #ffe766;
+	--gray-light: #dedcdc;
+	font-family: "HandelGothic";
 }
 
-.Container{
-    width: 90%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 50px 0;
+body {
+	/* background-image: linear-gradient(120deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), url("../Img/Fondo-Reg-Login.jpg"); 
+	background-image: url("../images/Fondo-Reg-Login.jpg");
+	background-position: center;
+	backdrop-filter: blur(8px);
+	background-size: cover;
+	background-repeat: no-repeat;*/
+	justify-content: center;
+	display: flex;
+	min-height: 100vh;
 }
 
-.Form-Box{
-    width: 430px;
-    backdrop-filter: blur(10px);
-    border: 3px solid #86e8cb;
-    border-radius: 30px;
-    padding: 5em 2.5em 2.3em 2.5em;
-    color: #081E5B;
-    box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.5);
-    max-width: 100%;
-    max-height: 100%;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.4);
+a {
+	text-decoration: none;
+	color: var(--primary);
 }
 
-.Form-Header{
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #081E5B;
-    width: 150px;
-    height: 60px;
-    border-radius: 0 0 20px 20px;
+a:hover {
+	text-decoration: underline;
 }
 
-.Form-Header span{
-    font-size: 20px;
-    color: #ffffff;
-    font-weight: 600;
+.Container {
+	width: 90%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 50px 0;
 }
 
-.Form-Header::before{
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -30px;
-    width: 30px;
-    height: 30px;
-    border-top-right-radius: 50%;
-    background: transparent;
-    box-shadow: 15px 0 0 0 #081E5B;
+.Form-Box {
+	width: 430px;
+	backdrop-filter: blur(10px);
+	border: 2px solid var(--black);
+	border-radius: 30px;
+	padding: 5em 2.5em 2.3em 2.5em;
+	color: var(--black);
+	box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.5);
+	max-width: 100%;
+	max-height: 100%;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.4);
 }
 
-.Form-Header::after{
-    content: "";
-    position: absolute;
-    top: 0;
-    right: -30px;
-    width: 30px;
-    height: 30px;
-    border-top-left-radius: 50%;
-    background: transparent;
-    box-shadow: -15px 0 0 0 #081E5B;
+.Form-Header {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--primary);
+	width: 150px;
+	height: 60px;
+	border-radius: 0 0 20px 20px;
+	border: 2px solid var(--black);
+	border-top: none;
+	box-sizing: border-box;
+	z-index: 1;
 }
 
-.Input-Box{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    margin: 18px 0;
+.Form-Header span {
+	font-size: 20px;
+	color: var(--black);
+	font-weight: 600;
 }
 
-.Input-Enter{
-    margin-top: 30px;
+.Form-Header::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -32px;
+	width: 32px;
+	height: 32px;
+	border-top-right-radius: 50%;
+	background: transparent;
+	box-shadow: 15px 0 0 0 var(--primary);
+	border-right: 2px solid var(--black);
+	box-sizing: border-box;
 }
 
-.Input-Field{
-    width: 100%;
-    height: 50px;
-    font-size: 15px;
-    background: transparent;
-    color: #081E5B;
-    padding-inline: 20px 50px;
-    border: 3px solid #081E5B;
-    border-radius: 30px;
-    outline: none;
+.Form-Header::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: -30px;
+	width: 30px;
+	height: 30px;
+	border-top-left-radius: 50%;
+	background: transparent;
+	box-shadow: -15px 0 0 0 var(--primary);
+	border-left: 2px solid var(--black);
+	box-sizing: border-box;
 }
 
-.label{
-    position: absolute;
-    top: 13px;
-    left: 20px;
-    transition: .2s;
+.Input-Box {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	margin: 18px 0;
+	white-space: nowrap;
+}
+
+.Input-Box i {
+	color: var(--primary);
+	text-shadow: 0 0 5px var(--black);
+}
+
+.Input-Enter {
+	margin-top: 30px;
+	filter: drop-shadow(0 0 7px var(--black));
+}
+
+.Input-Field {
+	width: 100%;
+	height: 50px;
+	font-size: 15px;
+	background: transparent;
+	color: var(--black);
+	padding-inline: 20px 50px;
+	border: 2px solid var(--black);
+	border-radius: 30px;
+	outline: none;
+}
+
+.label {
+	position: absolute;
+	top: 13px;
+	left: 20px;
+	transition: 0.2s;
+	z-index: 100000;
 }
 
 .Input-Field:focus ~ .label,
 .filled ~ .label,
 .active {
-    top: -12px;
-    left: 15px;
-    font-size: 14px;
-    background-color: #081E5B;
-    border-radius: 30px;
-    color: #ffffff;
-    border: 2px solid #ffffff;
-    padding: 0 10px;
+	top: -12px;
+	left: 15px;
+	font-size: 14px;
+	background-color: var(--black);
+	border-radius: 30px;
+	color: var(--primary);
+	border: 2px solid var(--primary);
+	padding: 0 10px;
+	z-index: 200000;
 }
 
 .Input-Box:hover .label:not(.active) {
-    top: -12px;
-    font-size: 14px;
-    background-color: #081E5B;
-    color: #ffffff;
-    padding: 0 10px;
-    border-radius: 30px;
-    border: 2px solid #ffffff;
+	top: -12px;
+	font-size: 14px;
+	background-color: var(--black);
+	color: var(--primary);
+	padding: 0 10px;
+	border-radius: 30px;
+	border: 2px solid var(--primary);
+	z-index: 200000;
 }
 
 .Input-Box select {
-    width: 100%;
-    height: 50px;
-    font-size: 15px;
-    color: #081E5B;
-    padding: 10px 20px;
-    border: 3px solid #081E5B;
-    border-radius: 30px;
-    appearance: none;
-    outline: none;
-    position: relative;
+	width: 100%;
+	height: 50px;
+	font-size: 15px;
+	color: var(--black);
+	padding: 10px 20px;
+	border: 2px solid var(--black);
+	border-radius: 30px;
+	appearance: none;
+	outline: none;
+	position: relative;
 }
 
-.Icon{
-    position: absolute;
-    top: 16px;
-    right: 25px;
-    font-size: 20px;
+.Icon {
+	position: absolute;
+	top: 16px;
+	right: 25px;
+	font-size: 20px;
 }
 
-.Btn{
-    width: 50%;
-    height: 40px;
-    background: #081E5B;
-    color: #ffffff;
-    font-size: 17px;
-    font-weight: 600;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: .2s;
-    display: block;
-    margin: 0 auto;
-    text-align: center;
+.Btn {
+	width: 40%;
+	height: 40px;
+	background: var(--primary);
+	color: var(--black);
+	font-size: 17px;
+	font-weight: 600;
+	border: none;
+	border-radius: 0;
+	cursor: pointer;
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	position: relative;
+
+	/*Efecto de ticket*/
+	--corner-size: 15px;
+	--cut-size: 10px;
+
+	-webkit-mask: radial-gradient(
+				circle at 0 0,
+				transparent var(--cut-size),
+				red 0
+			)
+			top left,
+		radial-gradient(circle at 100% 0, transparent var(--cut-size), red 0)
+			top right,
+		radial-gradient(circle at 0 100%, transparent var(--cut-size), red 0)
+			bottom left,
+		radial-gradient(circle at 100% 100%, transparent var(--cut-size), red 0)
+			bottom right;
+
+	-webkit-mask-size: 51% 51%;
+	-webkit-mask-repeat: no-repeat;
+	mask: radial-gradient(circle at 0 0, transparent var(--cut-size), red 0) top
+			left,
+		radial-gradient(circle at 100% 0, transparent var(--cut-size), red 0)
+			top right,
+		radial-gradient(circle at 0 100%, transparent var(--cut-size), red 0)
+			bottom left,
+		radial-gradient(circle at 100% 100%, transparent var(--cut-size), red 0)
+			bottom right;
+
+	mask-size: 51% 51%;
+	mask-repeat: no-repeat;
 }
 
-.Btn:hover{
-    background: #0A2A7A;
-    box-shadow: 0 0 10px #ffffff;
+.Btn:hover {
+	background: var(--hover);
+	transform: scale(0.95);
 }
 
-.Comment{
-    margin-top: 25px;
-    text-align: center;
+.Comment {
+	color: var(--primary);
+	margin-top: 25px;
+	text-align: center;
+	text-shadow: 0 0 10px var(--black);
 }
 
-.Comment a{
-    font-weight: 600;
+.Comment a {
+	font-weight: 600;
 }
 
 dialog {
-    padding: 20px;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    width: 300px;
+	padding: 20px;
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+	text-align: center;
+	width: 300px;
 }
 
 ¡dialog::backdrop {
-    background: rgba(0, 0, 0, 0.6);
+	background: rgba(0, 0, 0, 0.6);
 }
 
 dialog[open] {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 dialog button {
-    margin-top: 10px;
-    padding: 5px 10px;
-    border: none;
-    background-color: #081E5B;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
+	margin-top: 10px;
+	padding: 5px 10px;
+	border: none;
+	background-color: var(--primary);
+	color: var(--black);
+	border: 2px solid var(--black);
+	border-radius: 5px;
+	cursor: pointer;
 }
 
-dialog button:hover{
-    background-color: #0A2A7A;
+dialog button:hover {
+	background-color: var(--hover);
+	box-shadow: 0 0 10px var(--black);
 }
 
 /* Oculta los Enteres de incremento/decremento en los campos numéricos */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0; 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
 
-input[type=number] {
-    -moz-appearance: textfield;
-    appearance: none; 
+input[type="number"] {
+	-moz-appearance: textfield;
+	appearance: none;
 }
 
 @media only screen and (max-width: 560px) {
-    
-    .Container{
-        flex-direction: column;
-        align-items: center;
-        max-width: 80%;
-    }
+	.Container {
+		flex-direction: column;
+		align-items: center;
+		max-width: 80%;
+	}
 
-    .Btn{
-        width: 60%;
-    }
-
+	.Btn {
+		width: 60%;
+	}
 }

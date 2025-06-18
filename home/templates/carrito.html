@@ -4,103 +4,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static '/css/header.css' %}">  <!-- estilos del header -->
-    <link rel="stylesheet" href="{% static '/css/cart.css' %}"><!-- estilos del componente de home-->
-    <link rel="stylesheet" href="{% static '/css/menu.css' %}"> <!-- estilos del menu-->
-
+    <link rel="stylesheet" href="{% static '/css/header.css' %}">
+    <link rel="stylesheet" href="{% static '/css/cart.css' %}">
+    <link rel="stylesheet" href="{% static '/css/menu.css' %}">
 
     <!--CDN de iconos-->
-    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
-
-
-    <title>Corpoasia - Home</title>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+ 
+    <!-- Auth check script -->
+    <script src="{% static '/js/auth.js' %}"></script>
+    <title>MICASA - Shopping Cart</title>
 </head>
 <body>
-    <header>
-        <a >
+    <header class="main-header"
+        <a>
             <div class="logo">
-                <h1>
-                    <i>CORPOASIA</i><br><b>INVESTMENTS</b>
-                  </h1>
+                <h1>MICASA</h1>
             </div>
         </a>
-       
     
         <div class="site-placer">
-            <h1><i class="fa-solid fa-cart-shopping"></i> Cart</h1>
-          </div>
-    
-       </header>
-
-
-       <div class="cart-container">
+        </div>
+    </header>
+<br>
+    <div class="cart-container">
         <div class="navigation-links">
-          <a href="catalog.html" class="back-link">
-
-            <span><i class="fas fa-book-open"></i> See catalog</span>
-          </a>
-          <a href="scanner.html" class="back-link">
-
-            <span><i class="fas fa-arrow-left"></i> Scann a product</span>
-          </a>
+            <a href="{% url 'shop:product_list' %}" class="back-link">
+                <span><i class="fas fa-book-open"></i> Catalog</span>
+            </a>
+            <a href="/scanner" class="back-link">
+                <span><i class="fas fa-arrow-left"></i> Scanner</span>
+            </a>
         </div>
     
         <h1 class="cart-title">Shopping Cart</h1>
     
         <div class="cart-items" id="cartItems">
-          <!-- Los items del carrito se generarán dinámicamente con JavaScript -->
+            <!-- Cart items will be generated dynamically with JavaScript -->
         </div>
-    
+
         <div class="empty-cart" id="emptyCart" style="display: none;">
-          <i class="fas fa-shopping-bag"></i>
-          <h2>Your cart is empty</h2>
-          <p>Add Some products from our catalog</p>
-          <a href="catalog.html" class="btn primary-btn">See Catalog</a>
-          <h2>Or</h2>
-          <p>Scann some products</p>
-          <a href="scanner.html" class="btn primary-btn">See Catalog</a>
+            <i class="fas fa-shopping-bag"></i>
+            <h2>Your cart is empty</h2>
+            <p>Add some products from our catalog</p>
+            <a href="{% url 'shop:product_list' %}" class="btn primary-btn">Catalog</a>
+            <h2>Or</h2>
+            <p>Scan some products</p>
+            <a href="/scanner" class="btn primary-btn">Scanner</a>
         </div>
-    
+        
         <div class="order-summary" id="orderSummary">
-          <div class="summary-details">
-            <div>
-              <p class="summary-text">Total (<span id="totalItems">0</span> products):</p>
-              <p class="total-price" id="totalPrice">$0.00</p>
+            <div class="summary-details">
+                <div class="summary-item">
+                    <p class="summary-text">Total (<span id="totalItems">0</span> products):</p>
+                    <p class="total-price" id="totalPrice">$0.00</p>
+                </div>
+                <button class="btn primary-btn generate-order-btn">Generate Order</button>
             </div>
-            <button class="btn primary-btn generate-order-btn">Generate Order</button>
-          </div>
-        </div>
-      </div>
-              
- 
-
-
-
-
-       <div id="page" class="site">
-        <div class="container">
-            <nav>
-                <input type="checkbox" id="link" hidden>
-                <label for="link" class="link">
-                    <i class="menu fa-solid fa-bars-staggered"></i>
-                    <i class="close fa-solid fa-xmark"></i>
-                </label>
-    
-                <!-- Overlay oscuro -->
-                <div class="overlay"></div>
-    
-                <ul class="submenu">
-                    <li><a class="h-link" href="scanner.html"><span>ScanQR</span> <i class="fa-solid fa-qrcode i-tag"></i></a></li>
-                    <li><a class="h-link" href="catalog.html"><span>Catalog</span> <i class="fa-solid fa-book-open i-tag"></i></a></li>
-                    <li><a class="h-link" href="home.html"><span>Home</span> <i class="fa-solid fa-house i-tag"></i></a></li>
-                    <li><a class="h-link" href="cart.html"><span>Cart</span> <i class="fa-solid fa-cart-shopping i-tag"></i></a></li>
-                    <li><a class="h-link" href="account.html"><span>Account</span> <i class="fa-solid fa-user i-tag"></i></a></li>
-                </ul>
-            </nav>
         </div>
     </div>
 
+    <div class="nav-shadow-wrapper">
+
+        <div class="Navigation">
+    
+            <label title="Cart" for="cart" class="label">
+                <a href="/carrito">
+                    <input id="cart" name="page" type="radio"/>
+                    <i class="fi fi-rr-shopping-cart"></i>
+                </a>
+            </label>
+    
+            <label title="Shop" for="store" class="label">
+                <a href="/shop/">
+                    <input id="store" name="page" type="radio"/>
+                    <i class="fi fi-rr-catalog-magazine"></i>
+                </a>
+            </label>
+    
+            <label title="Home" for="home" class="label" >
+                <a href="/home/">
+                    <input id="home" name="page" type="radio"/>
+                    <i class="fi fi-rr-house-chimney"></i>
+                </a>
+            </label>
+    
+            <label title="Scanner" for="favorite" class="label">
+                <a href="/scanner">
+                    <input id="favorite" name="page" type="radio"/>
+                    <i class="fi fi-rr-camera-viewfinder"></i>
+                </a>
+            </label>
+    
+            <label title="Profile" for="notifications" class="label">
+                <a href="/profile/">
+                    <input id="notifications" name="page" type="radio"/>
+                    <i class="fi fi-rr-user"></i>
+                </a>
+            </label>
+            
+        </div>
+        
+    </div>
+
+    <script src="../static/js/brillo.js"></script>
+    <script src="{% static '/js/cart.js' %}"></script>
 </body>
-<script src="{% static '/js/cart.js' %}"></script>
 </html>

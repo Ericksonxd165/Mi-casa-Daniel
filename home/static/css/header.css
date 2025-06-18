@@ -1,72 +1,172 @@
-@charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
+/* Estilos Globales 
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+*/
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    overflow-x: hidden;
-
+@font-face {
+	font-family: "HandelGothic";
+	font-style: normal;
+	font-weight: normal;
+	src: local("HandelGothic"),
+		url("../webfonts/HandelGothic\ TL\ Kirillica.woff") format("woff");
 }
 
-
-
-
-
-
-header {
-    position: fixed;
-    display: flex;
-    background-color: #081e5b;
-    height: 120px;
-    width: 100%;
-    font-family: 'Poppins';
-    color: white;
-    padding: 10px;
-    z-index: 1000; /* Asegúrate de que esté por encima del contenido */
-    overflow: hidden !important; 
+:root {
+	--primary: #ffd720;
+	--black: #000000;
+	--white: #ffffff;
+	--hover: #ffe766;
+	font-family: "HandelGothic";
 }
 
-
-
-
-.logo{
-    margin-left: 100px;
-
+::-webkit-scrollbar {
+	display: none;
 }
 
-.site-placer{
-   
-    width: 100%;
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    color: white !important;
-    font-size: 1em;
-   
+body {
+	font-size: 16px;
+	line-height: 1.8;
+	font-weight: 600;
+	color: var(--black);
+	background-color: var(--white);
+	overflow-x: hidden;
 }
 
-@media screen and (max-width: 600px){
-
-.logo{
-    font-size: x-small;
-    margin-left: 2px;
-    width: 300px;
+h1 {
+	font-family: var(--font-family);
+	text-decoration: none;
+	font-size: 30px;
+	color: var(--white);
 }
 
-header{
-    height: 85px;
-   
+a {
+	text-decoration: none;
 }
 
-.site-placer{
-    display: block;
-    position: relative;
-    top: 20%;
-    left: 10%;
-    font-size: smaller;
-    
+h2 {
+	font-family: var(--font-family);
+	color: var(--black);
+	text-decoration: none;
+	font-size: 22px;
 }
- }
+
+/* Header */
+.main-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	background-color: var(--primary);
+	width: 100%;
+	color: var(--black);
+	padding: 15px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 10;
+	height: auto;
+	min-height: 5%;
+	border-bottom: 2px solid var(--black);
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	margin-left: 20px;
+	color: var(--white);
+	background-color: black;
+	padding: 0 10px;
+	letter-spacing: 1px;
+
+	--corner-size: 16px;
+	--cut-size: 11px;
+
+	-webkit-mask: radial-gradient(
+				circle at 0 0,
+				transparent var(--cut-size),
+				red 0
+			)
+			top left,
+		radial-gradient(circle at 100% 0, transparent var(--cut-size), red 0)
+			top right,
+		radial-gradient(circle at 0 100%, transparent var(--cut-size), red 0)
+			bottom left,
+		radial-gradient(circle at 100% 100%, transparent var(--cut-size), red 0)
+			bottom right;
+
+	-webkit-mask-size: 51% 51%;
+	-webkit-mask-repeat: no-repeat;
+	mask: radial-gradient(circle at 0 0, transparent var(--cut-size), red 0) top
+			left,
+		radial-gradient(circle at 100% 0, transparent var(--cut-size), red 0)
+			top right,
+		radial-gradient(circle at 0 100%, transparent var(--cut-size), red 0)
+			bottom left,
+		radial-gradient(circle at 100% 100%, transparent var(--cut-size), red 0)
+			bottom right;
+
+	mask-size: 51% 51%;
+	mask-repeat: no-repeat;
+}
+
+.site-placer {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.site-placer h2 {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	color: var(--black);
+}
+
+.site-placer i {
+	font-size: 20px;
+	color: var(--black);
+}
+
+/* Estilos Responsivos */
+@media screen and (max-width: 768px) {
+	.main-header {
+		padding: 10px 15px;
+	}
+
+	.logo {
+		margin-left: 0;
+	}
+
+	.logo h1 {
+		font-size: 24px;
+	}
+
+	.site-placer h2 {
+		font-size: 18px;
+	}
+}
+
+@media screen and (min-width: 769px) and (max-width: 1023px) {
+	.main-header {
+		padding: 12px 20px;
+	}
+
+	.logo {
+		margin-left: 20px;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.main-header {
+		padding: 15px 30px !important;
+	}
+
+	.logo {
+		margin-left: 110px;
+	}
+
+	.site-placer {
+		margin-right: 50px;
+	}
+}

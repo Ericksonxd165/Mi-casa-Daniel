@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 
 <html lang="en">
@@ -8,7 +9,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
         <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-        <link rel="stylesheet" href="../../static/css/Style-Internal-Form.css">
+        <link rel="stylesheet" href="{% static 'css/Style-Internal-Form.css' %}">
 
         <title>Register Category</title>
     </head>
@@ -32,38 +33,51 @@
                     </div>
 
                 </div>
-                
                 <div class="form-container">
-                    <form class="form" id="Category-Form" novalidate autocomplete="off">
+                    <form class="form" id="Category-Form" method="post" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
                         <div class="form-group">
-                            <label for="Category">Name Category</label>
-                            <input type="text" id="Category" name="Category" required>
+                            <label for="id_name">Name Category</label>
+                            {{ form.name }}
                         </div>
                         <div class="form-group">
-                            <label for="CategoryImage">Upload Image</label>
-                            <input type="file" id="CategoryImage" name="CategoryImage" accept="image/*">
+                            <label for="id_background_image">Upload Image</label>
+                            {{ form.background_image }}
                         </div>
-                        <button class="btn-save">SAVE</button>                    
+                        <button class="btn-save">SAVE</button>
                     </form>
                 </div>
-                
 
                 <div class="Navigation">
-                    <label title="home" for="home" class="label">
-                        <input id="home" name="page" type="radio" checked="" />
-                        <i class="fi fi-rr-marketplace-store"></i>
-                    </label>
                     <label title="cart" for="cart" class="label">
-                        <input id="cart" name="page" type="radio" />
-                        <i class="fi fi-rr-shopping-cart"></i>
+                        <a href="/adminuser/adminpanel">
+                        <input id="cart" name="page" type="radio"/>
+                        <i class="fi fi-rr-dashboard-monitor"></i>
+                    </a>
+                    </label>
+                    <label title="store" for="store" class="label">
+                        <a href="/adminuser/adminproducts">
+                        <input id="store" name="page" type="radio" />
+                        <i class="fi fi-rr-boxes"></i>
+                    </a>
+                    </label>
+                    <label title="home" for="home" class="label">
+                        <a href="/adminuser/adminemployee">
+                        <input id="home" name="page" type="radio" />
+                        <i class="fi fi-rr-employee-man-alt"></i>
+                    </a>
                     </label>
                     <label title="favorite" for="favorite" class="label">
+                        <a href="/adminuser/adminsupplier">
                         <input id="favorite" name="page" type="radio" />
-                        <i class="fi fi-rr-heart"></i>
+                        <i class="fi fi-rr-store-alt"></i>
+                    </a>
                     </label>
                     <label title="notifications" for="notifications" class="label">
-                        <input id="notifications" name="page" type="radio" />
-                        <i class="fi fi-rr-bell-notification-social-media"></i>
+                        <a href="/adminuser/admincategories">
+                        <input id="notifications" name="page" type="radio"  checked=""  />
+                        <i class="fi fi-rr-objects-column"></i>
+                        </a>
                     </label>
                 </div>
 

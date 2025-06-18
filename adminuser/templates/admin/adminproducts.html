@@ -1,0 +1,510 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Products</title>
+    <link rel="stylesheet" href="{% static 'css/crud_dashboardforproduct.css' %}">
+    <link rel="stylesheet" href="{% static 'css/menu-navbar-admin.css' %}">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Card -->
+        <div class="header-card">
+            <div class="user-info">
+                <div class="avatar">
+                    <i class="fas fa-box"></i>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <h1 class="title">Products and Orders</h1>
+                    <button id="show-orders-btn" class="filter-btn" style="padding: 5px 10px; font-size: 14px; width: 40%;">Show Orders</button>
+                </div>
+                
+            </div>
+            <div class="actions">
+
+            </div>
+        </div>
+        
+        <!-- Search and Filter -->
+        <div class="search-filter">
+            <button style="width: auto; padding: 0 15px;" class="filter-btn" id="buttonredirect">
+                <i class="fas fa-plus"></i> Add Product
+            </button>
+           
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="search-input" placeholder="Search...">
+            </div>
+            <div class="filter-container">
+  
+            </div>
+        </div>
+        
+        <!-- Data Grid -->
+        <div class="grid-container">
+            <!-- Table View (for larger screens) -->
+            <div class="table-view">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Stock</th>
+                            <th>QR Code</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td class="image-cell">
+                                {% for image in product.images.all %}
+                                <div class="product-image-container">
+                                    <img src="{{ image.image.url }}" alt="Product Image" class="product-image">
+                                    <input type="radio" name="primary_image_{{ product.id }}" class="primary-radio" 
+                                           {% if image.is_primary %}checked{% endif %}
+                                           onclick="confirmPrimaryChange('{{ image.id }}', '{{ product.id }}')">
+                                </div>
+                                {% endfor %}
+                            </td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category.name }}</td>
+                            <td>{{ product.stock_per_box }}</td>
+                            <td>
+                                {% if product.qr_code %}
+                                    <img src="{{ product.qr_code.url }}" alt="QR Code" style="height: 100px;" id="qr-code-{{ product.id }}">
+                                  
+                                {% else %}
+                                    <span>No QR</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <button class="download-btn" onclick="downloadQRCode('{{ product.id }}')" title="Download QR">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <a href="{% url 'shop:product_detail' product.id product.slug %}" class="view-details-btn" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{% url 'adminuser:edit_product' product.id %}" class="action-icon edit" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form method="post" action="{% url 'adminuser:delete_product' product.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="action-icon delete" title="Delete" onclick="return confirm('Are you sure to delete this product?');">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                        
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Card View (for mobile and tablet) -->
+            <div class="card-view">
+                {% for product in products %}
+                <div class="data-card">
+                    <div class="card-header">
+                        <h3>{{ product.name }}</h3>
+                        <div class="card-actions">
+                            <button class="download-btn" onclick="downloadQRCode('{{ product.id }}')" title="Download QR">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <a href="{% url 'shop:product_detail' product.id product.slug %}" class="view-details-btn" title="View Details">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{% url 'adminuser:edit_product' product.id %}" class="action-icon edit" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            
+                            <form method="post" action="{% url 'adminuser:delete_product' product.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="action-icon delete" title="Delete" onclick="return confirm('Are you sure to delete this product?');">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Imágenes del producto -->
+                    <div class="card-images">
+                        {% for image in product.images.all %}
+                        <div class="card-image-container">
+                            <img src="{{ image.image.url }}" alt="Product Image" class="card-image">
+                            <input type="radio" name="card_primary_image_{{ product.id }}" class="card-primary-radio" 
+                                   {% if image.is_primary %}checked{% endif %}
+                                   onclick="confirmPrimaryChange('{{ image.id }}', '{{ product.id }}')">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="card-field">
+                            <span class="field-label">Category:</span>
+                            <span class="field-value">{{ product.category.name }}</span>
+                        </div>
+                        <div class="card-field">
+                            <span class="field-label">Stock:</span>
+                            <span class="field-value">{{ product.stock_per_box }}</span>
+                        </div>
+                        <div class="card-field">
+                            <span class="field-label">QR Code:</span>
+                            {% if product.qr_code %}
+                                <img src="{{ product.qr_code.url }}" alt="QR Code" class="qr-code">
+                            {% else %}
+                                <span>No QR</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- Orders View -->
+        <div class="grid-container"> 
+            <div class="table-view" id="orders-view" style="display: none;">
+                <div class="table-scroll-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Products</th>
+                                <th>Quantity</th>
+                                <th>Supplier</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Payment</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td>{{ order.customer_name }}</td>
+                                <td>
+                                    <ul>
+                                        {% for item in order.items.all %}
+                                        <li>{{ item.product.name }} (x{{ item.quantity }})</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>{{ order.items.count }}</td>
+                                <td>
+                                    <ul>
+                                        {% for item in order.items.all %}
+                                        <li>{{ item.supplier.name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>${{ order.total_amount }}</td>
+                                <td>{{ order.status }}</td>
+                                <td>{{ order.payment_method }}</td>
+                                <td>
+                                    {% if order.status == "pending" %}
+                                    <form method="post" action="{% url 'adminuser:mark_as_delivered' order.id %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Are you sure to confirm this order?');" style="background-color: greenyellow;">Mark as Delivered <i class="fas fa-check"></i></button>
+                                    </form>
+                                    {% else %}
+                                    <span class="btn btn-secondary btn-sm" style="background-color: rgb(56, 207, 210); cursor:default">Already Delivered <i class="fas fa-check"></i></span>
+                                    {% endif %}
+                                    <form method="post" action="{% url 'adminuser:delete_order' order.id %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Cancel or delete this order?');" style="background-color: #ef4444;">Delete <i class="fas fa-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+        <!-- Fin de la vista de órdenes -->
+
+        <!-- Order History Section -->
+  
+    
+
+    
+    <!-- Menú de navegación fijo -->
+    <div class="Navigation">
+        <label title="cart" for="cart" class="label">
+            <a href="/adminuser/adminpanel">
+            <input id="cart" name="page" type="radio"  />
+            <i class="fi fi-rr-dashboard-monitor"></i>
+        </a>
+        </label>
+        <label title="store" for="store" class="label">
+            <a href="/adminuser/adminproducts">
+            <input id="store" name="page" type="radio" checked="" />
+            <i class="fi fi-rr-boxes"></i>
+        </a>
+        </label>
+        <label title="home" for="home" class="label">
+            <a href="/adminuser/adminemployee">
+            <input id="home" name="page" type="radio" />
+            <i class="fi fi-rr-employee-man-alt"></i>
+        </a>
+        </label>
+        <label title="favorite" for="favorite" class="label">
+            <a href="/adminuser/adminsupplier">
+            <input id="favorite" name="page" type="radio" />
+            <i class="fi fi-rr-store-alt"></i>
+        </a>
+        </label>
+        <label title="notifications" for="notifications" class="label">
+            <a href="/adminuser/admincategories">
+            <input id="notifications" name="page" type="radio" />
+            <i class="fi fi-rr-objects-column"></i>
+            </a>
+        </label>
+    </div>
+    
+    <style>
+        .download-btn, .view-details-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 10px;
+            margin-left: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .download-btn {
+            background-color: #4CAF50; /* Green */
+            color: white;
+        }
+
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+
+        .view-details-btn {
+            background-color: #007BFF; /* Blue */
+            color: white;
+        }
+
+        .view-details-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .download-btn i, .view-details-btn i {
+            margin-right: 5px;
+        }
+
+        .table-scroll-container {
+            overflow-x: auto; /* Enable horizontal scrolling */
+            white-space: nowrap; /* Prevent table content from wrapping */
+        }
+
+        .data-table {
+            width: 100%; /* Ensure the table takes full width */
+            border-collapse: collapse;
+        }
+
+        .data-table th, .data-table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .data-table th {
+            background-color: #f4f4f4;
+        }
+    </style>
+
+    <script>
+        let boton = document.getElementById("buttonredirect");
+        boton.addEventListener("click", () => {
+            location.href = '/adminuser/addproduct';
+        });
+
+        function confirmPrimaryChange(imageId, productId) {
+            if (confirm("Are you sure you want to set this image as the primary image?")) {
+                fetch(`/adminuser/set_primary_image/${productId}/${imageId}/`, {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Primary image updated successfully!");
+                        location.reload();
+                    } else {
+                        alert("Failed to update the primary image.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred.");
+                });
+            }
+        }
+        
+        // Sincronizar selección de imagen principal entre vista de tarjeta y tabla
+        document.addEventListener('change', function(e) {
+            if (e.target.name && e.target.name.startsWith('primary_image_')) {
+                const productId = e.target.name.split('_').pop();
+                const cardRadios = document.querySelectorAll(`[name="card_primary_image_${productId}"]`);
+                const tableRadios = document.querySelectorAll(`[name="primary_image_${productId}"]`);
+                
+                // Sincronizar selección
+                const selectedIndex = Array.from(tableRadios).findIndex(radio => radio.checked);
+                if (selectedIndex >= 0 && cardRadios[selectedIndex]) {
+                    cardRadios[selectedIndex].checked = true;
+                }
+            } else if (e.target.name && e.target.name.startsWith('card_primary_image_')) {
+                const productId = e.target.name.split('_').pop();
+                const cardRadios = document.querySelectorAll(`[name="card_primary_image_${productId}"]`);
+                const tableRadios = document.querySelectorAll(`[name="primary_image_${productId}"]`);
+                
+                // Sincronizar selección
+                const selectedIndex = Array.from(cardRadios).findIndex(radio => radio.checked);
+                if (selectedIndex >= 0 && tableRadios[selectedIndex]) {
+                    tableRadios[selectedIndex].checked = true;
+                }
+            }
+        });
+
+        const showOrdersBtn = document.getElementById('show-orders-btn');
+
+        showOrdersBtn.addEventListener('click', function() {
+            const tableView = document.querySelector('.table-view');
+            const cardView = document.querySelector('.card-view');
+            const ordersView = document.getElementById('orders-view');
+            
+            // Toggle between products and orders view
+            if (ordersView.style.display === 'none') {
+                tableView.style.display = 'none';
+                cardView.style.display = 'none';
+                ordersView.style.display = 'block';
+                showOrdersBtn.textContent = 'Show Products';
+            } else {
+                tableView.style.display = '';
+                cardView.style.display = '';
+                ordersView.style.display = 'none';
+                showOrdersBtn.textContent = 'Show Orders';
+            }
+        });
+
+        function downloadQRCode(productId) {
+            const qrCodeImg = document.getElementById(`qr-code-${productId}`);
+            if (qrCodeImg) {
+                const link = document.createElement('a');
+                link.href = qrCodeImg.src;
+                link.download = `product_${productId}_qr.png`;
+                link.click();
+            } else {
+                alert('QR Code not found for this product.');
+            }
+        }
+
+        async function fetchOrderHistory() {
+            try {
+                const response = await fetch('/adminuser/api/orders/'); // Replace with the correct API endpoint
+                if (!response.ok) {
+                    throw new Error('Failed to fetch order history');
+                }
+                const orders = await response.json();
+                localStorage.setItem('orderHistory', JSON.stringify(orders)); // Update localStorage
+                loadOrderHistory(); // Update the UI
+            } catch (error) {
+                console.error('Error fetching order history:', error);
+            }
+        }
+
+        function loadOrderHistory() {
+            const orderHistorySection = document.getElementById('orderHistorySection');
+            if (!orderHistorySection) return;
+
+            const savedOrders = JSON.parse(localStorage.getItem('orderHistory')) || [];
+
+            if (savedOrders.length === 0) {
+                orderHistorySection.innerHTML = `
+                    <div class="empty-history">
+                        <i class="fas fa-history"></i>
+                        <h3>No Order History</h3>
+                        <p>You haven't placed any orders yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let ordersHTML = `
+                <h3 class="section-title">Order History</h3>
+                <div class="orders-list">
+            `;
+
+            savedOrders.forEach((order) => {
+                ordersHTML += `
+                    <div class="order-item">
+                        <div class="order-header">
+                            <div>
+                                <span class="order-id">Order #${order.orderId}</span>
+                                <span class="order-date">${new Date(order.date).toLocaleDateString()}</span>
+                            </div>
+                            <span class="order-status ${order.status}">${order.status}</span>
+                        </div>
+                        <div class="order-details">
+                            <div class="order-products">
+                                <span>${order.items.length} product(s)</span>
+                            </div>
+                            <div class="order-total">
+                                <span>Total: $${order.total.toFixed(2)}</span>
+                            </div>
+                        </div>
+                        <div class="order-actions">
+                            <button class="btn view-order-btn" data-order-id="${order.orderId}">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                            <button class="btn download-invoice-btn" data-order-id="${order.orderId}">
+                                <i class="fas fa-file-download"></i> Download Invoice
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            ordersHTML += `</div>`;
+            orderHistorySection.innerHTML = ordersHTML;
+
+            // Add event listeners for buttons
+            document.querySelectorAll('.view-order-btn').forEach((btn) => {
+                btn.addEventListener('click', function () {
+                    const orderId = this.getAttribute('data-order-id');
+                    alert(`Viewing details for order #${orderId}`);
+                });
+            });
+
+            document.querySelectorAll('.download-invoice-btn').forEach((btn) => {
+                btn.addEventListener('click', function () {
+                    const orderId = this.getAttribute('data-order-id');
+                    alert(`Downloading invoice for order #${orderId}`);
+                });
+            });
+        }
+
+        // Fetch and load order history on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchOrderHistory();
+        });
+    </script>
+</body>
+</html>
+

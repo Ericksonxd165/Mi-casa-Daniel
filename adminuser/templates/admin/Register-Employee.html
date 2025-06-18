@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 
 <html lang="en">
@@ -8,7 +9,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
         <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-        <link rel="stylesheet" href="../../static/css/Style-Internal-Form.css">
+        <link rel="stylesheet" href="{% static 'css/Style-Internal-Form.css' %}">
 
         <title>Register Employee</title>
     </head>
@@ -34,54 +35,87 @@
                 </div>
                 
                 <div class="form-container">
-                    <form class="form" id="Form-Reg-Emp" novalidate autocomplete="off">
+                    <form class="form" id="Form-Reg-Emp" method="post" novalidate>
+                        {% csrf_token %}
                         <div class="form-group">
-                            <label for="DNI">DNI</label>
-                            <input type="number" id="DNI" name="DNI" required maxlength="15">
+                            <label for="id_dni">DNI</label>
+                            {{ form.dni }}
+                            {% if form.dni.errors %}
+                                <div class="error">{{ form.dni.errors|striptags }}</div>
+                            {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="First-Name">First Name</label>
-                            <input type="text" id="First-Name" name="First-Name" required>
+                            <label for="id_first_name">First Name</label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <div class="error">{{ form.first_name.errors|striptags }}</div>
+                            {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="Last-Name">Last Name</label>
-                            <input type="text" id="Last-Name" name="Last-Name" required>
+                            <label for="id_last_name">Last Name</label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                                <div class="error">{{ form.last_name.errors|striptags }}</div>
+                            {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="Phone-Number">Phone Number</label>
-                            <input type="number" id="Phone-Number" name="Phone-Number" required maxlength="11">
+                            <label for="id_phone_number">Phone Number</label>
+                            {{ form.phone_number }}
+                            {% if form.phone_number.errors %}
+                                <div class="error">{{ form.phone_number.errors|striptags }}</div>
+                            {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="Email">Email</label>
-                            <input type="email" id="Email" name="Email" required>
+                            <label for="id_email">Email</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="error">{{ form.email.errors|striptags }}</div>
+                            {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="Address">Address</label>
-                            <input type="text" id="Address" name="Address" required>
+                            <label for="id_address">Address</label>
+                            {{ form.address }}
+                            {% if form.address.errors %}
+                                <div class="error">{{ form.address.errors|striptags }}</div>
+                            {% endif %}
                         </div>
                         <button type="submit" class="btn-save">Save</button>
                     </form>
                 </div>
+
                                 
                 <div class="Navigation">
-                    <label title="home" for="home" class="label">
-                        <input id="home" name="page" type="radio" checked="" />
-                        <i class="fi fi-rr-marketplace-store"></i>
-                    </label>
                     <label title="cart" for="cart" class="label">
-                        <input id="cart" name="page" type="radio" />
-                        <i class="fi fi-rr-shopping-cart"></i>
+                        <a href="/adminuser/adminpanel">
+                        <input id="cart" name="page" type="radio"  />
+                        <i class="fi fi-rr-dashboard-monitor"></i>
+                    </a>
+                    </label>
+                    <label title="store" for="store" class="label">
+                        <a href="/adminuser/adminproducts">
+                        <input id="store" name="page" type="radio" />
+                        <i class="fi fi-rr-boxes"></i>
+                    </a>
+                    </label>
+                    <label title="home" for="home" class="label">
+                        <a href="/adminuser/adminemployee">
+                        <input id="home" name="page" type="radio" checked=""/>
+                        <i class="fi fi-rr-employee-man-alt"></i>
+                    </a>
                     </label>
                     <label title="favorite" for="favorite" class="label">
+                        <a href="/adminuser/adminsupplier">
                         <input id="favorite" name="page" type="radio" />
-                        <i class="fi fi-rr-heart"></i>
+                        <i class="fi fi-rr-store-alt"></i>
+                    </a>
                     </label>
                     <label title="notifications" for="notifications" class="label">
+                        <a href="/adminuser/admincategories">
                         <input id="notifications" name="page" type="radio" />
-                        <i class="fi fi-rr-bell-notification-social-media"></i>
+                        <i class="fi fi-rr-objects-column"></i>
+                        </a>
                     </label>
                 </div>
-
             </div>
         
         </div>

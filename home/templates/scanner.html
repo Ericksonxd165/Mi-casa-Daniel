@@ -5,87 +5,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static '/css/header.css' %}">  <!-- estilos del header -->
-    <link rel="stylesheet" href="{% static '/css/scanner.css' %}"><!-- estilos del componente de home-->
-    <link rel="stylesheet" href="{% static '/css/menu.css' %}"> <!-- estilos del menu-->
-  
+    <link rel="stylesheet" href="{% static '/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/scanner.css' %}">
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
 
 
-     <!--CDN de iconos-->
-     <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/js/all.min.js"></script>
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css"> 
+    <!--CDN de iconos-->
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css"> 
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 
-    <title>Corpoasia - Scann a QR</title>
+    <script src="{% static '/js/auth.js' %}"></script>
+    <title>MICASA - Scan a QR</title>
 </head>
 <body>
 
-    <header>
-        <a >
+    <header class="main-header"
+        <a>
             <div class="logo">
-                <h1>
-                    <i>CORPOASIA</i><br><b>INVESTMENTS</b>
-                  </h1>
+                <h1>MICASA</h1>
             </div>
         </a>
-       
-    
+
         <div class="site-placer">
-            <h1><i class="fa-solid fa-qrcode"></i> Scanner</h1>
-          </div>
-    
-       </header>
+        </div>
+    </header>
 
-
-
-       <div class="Container-scanner">
+    <div class="Container-scanner">
         <div class="Scan">
-            <!-- Botón para activar/desactivar el escáner -->
-            <button id="toggleScannerBtn" class="BTN-Scan"  role="button">
+            
+            <!--
+            <button id="toggleScannerBtn" class="BTN-Scan" role="button">
                 <span id="text-scan">TURN ON</span>
             </button>
+            -->
             
-            <!-- Cuadro con transición suave para escanear -->
-            <div class="box-scan" ">
+            <div class="box-scan">
+                <img id="bgimg" src="../static/images/scan.jpg" alt="">
                 <div class="message">
-                    <h1 class="h1">Turn on the Scanner</h1>
+                    <!-- <h1 class="h1">Turn on the Scanner</h1> -->
                 </div>
                 <video id="videoElement" autoplay playsinline muted></video>
+                <div class="scanner-overlay">
+                    <div class="corner-bottom-left"></div>
+                    <div class="corner-bottom-right"></div>
+                </div>
             </div>
-    
-    
-            <a class="BTN-normal" href="cart.html"><i class="fa-solid fa-cart-shopping"></i>  Cart</button></a>  
-           <a class="BTN-normal" href="catalog.html"><i class="fa-solid fa-book-open"></i>  Catalog</button></a>
+
+            <!--
+            <a class="BTN-normal" href="cart.html"><i class="fa-solid fa-cart-shopping"></i> Cart</a>  
+            <a class="BTN-normal" href="catalog.html"><i class="fa-solid fa-book-open"></i> Catalog</a>
+            -->
         </div>         
     </div>
+
+    <div class="nav-shadow-wrapper">
+
+        <div class="Navigation">
     
+            <label title="Cart" for="cart" class="label">
+                <a href="/carrito">
+                    <input id="cart" name="page" type="radio"/>
+                    <i class="fi fi-rr-shopping-cart"></i>
+                </a>
+            </label>
+    
+            <label title="Shop" for="store" class="label">
+                <a href="/shop/">
+                    <input id="store" name="page" type="radio"/>
+                    <i class="fi fi-rr-catalog-magazine"></i>
+                </a>
+            </label>
+    
+            <label title="Home" for="home" class="label" >
+                <a href="/home/">
+                    <input id="home" name="page" type="radio"/>
+                    <i class="fi fi-rr-house-chimney"></i>
+                </a>
+            </label>
+    
+            <label title="Scanner" for="favorite" class="label">
+                <a href="/scanner">
+                    <input id="favorite" name="page" type="radio"/>
+                    <i class="fi fi-rr-camera-viewfinder"></i>
+                </a>
+            </label>
+    
+            <label title="Profile" for="notifications" class="label">
+                <a href="/profile/">
+                    <input id="notifications" name="page" type="radio"/>
+                    <i class="fi fi-rr-user"></i>
+                </a>
+            </label>
+            
         </div>
-
-   
         
-        <div id="page" class="site">
-            <div class="container">
-                <nav>
-                    <input type="checkbox" id="link" hidden>
-                    <label for="link" class="link">
-                        <i class="menu fa-solid fa-bars-staggered"></i>
-                        <i class="close fa-solid fa-xmark"></i>
-                    </label>
-        
-                    <!-- Overlay oscuro -->
-                    <div class="overlay"></div>
-        
-                    <ul class="submenu">
-                        <li><a class="h-link" href="scanner.html"><span>ScanQR</span> <i class="fa-solid fa-qrcode i-tag"></i></a></li>
-                        <li><a class="h-link" href="catalog.html"><span>Catalog</span> <i class="fa-solid fa-book-open i-tag"></i></a></li>
-                        <li><a class="h-link" href="home.html"><span>Home</span> <i class="fa-solid fa-house i-tag"></i></a></li>
-                        <li><a class="h-link" href="cart.html"><span>Cart</span> <i class="fa-solid fa-cart-shopping i-tag"></i></a></li>
-                        <li><a class="h-link" href="account.html"><span>Account</span> <i class="fa-solid fa-user i-tag"></i></a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+    </div>
+    
+    
 
-
+    <!-- Carga los scripts en el orden correcto -->
+    <script src="../static/js/brillo.js"></script>
+    <script src="{% static 'js/plugins/qrCode.min.js' %}"></script>
+    <script src="{% static 'js/scanner.js' %}"></script>
 
 </body>
 

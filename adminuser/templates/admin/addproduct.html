@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-    <!-- Font Awesome para iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -20,10 +18,10 @@
         <!-- Header -->
         <div class="header">
             <a href="/adminuser/">
-            <button class="back-btn">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-        </a>
+                <button class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </a>
             <h1>Add Product</h1>
             <button class="settings-btn">
                 <i class="fas fa-cog"></i>
@@ -46,22 +44,19 @@
                                 </div>
                                 <span>Upload Image</span>
                             </label>
-                            <input type="file" id="image-input" name="images" accept="image/*" hidden>
+                            <input type="file" id="image-input" name="upload-temp" accept="image/*" hidden>
                         </div>
                     </div>
                     <p class="image-counter"><span id="image-count">0</span>/5 Images</p>
                     
-                    <!-- Hidden input to store image data for Django -->
-                    <div id="django-image-formset">
+                    <!-- Hidden: management form & empty_form for clonar -->
+                    <div id="django-image-formset" style="display:none;">
                         {{ image_formset.management_form }}
-                        {% for form in image_formset %}
-                            <div class="hidden-form">
-                                {{ form.id }}
-                                <div class="form-error">{{ form.image.errors }}</div>
-                                {{ form.image }}
-                                {{ form.DELETE }}
+                        <div id="image-form-template">
+                            <div class="image-form" data-index="__prefix__">
+                                {{ image_formset.empty_form }}
                             </div>
-                        {% endfor %}
+                        </div>
                     </div>
                 </div>
                 
@@ -86,6 +81,20 @@
                         <label for="{{ form.weight.id_for_label }}" class="form-label">Weight (kg)</label>
                         {{ form.weight }}
                     </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.stock_per_box.id_for_label }}" class="form-label">Stock</label>
+                        {{ form.stock_per_box }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.size.id_for_size }}" class="form-label">Size</label>
+                        {{ form.size }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.available.id_for_label }}" class="form-label">Available</label>
+                        {{ form.available }}
+                    </div>
                 </div>
                 
                 <!-- Providers Section -->
@@ -98,42 +107,8 @@
                     </div>
                     
                     <div id="providers-container">
-                        <!-- Provider formset will be rendered here -->
-                        {{ provider_formset.management_form }}
-                        {% for provider_form in provider_formset %}
-                            <div class="provider-card" data-index="{{ forloop.counter0 }}">
-                                <div class="provider-header">
-                                    <span>Proveedor {{ forloop.counter }}</span>
-                                    {% if forloop.counter > 1 %}
-                                        <button type="button" class="remove-provider">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    {% endif %}
-                                </div>
-                                
-                                <div class="provider-form">
-                                    {{ provider_form.id }}
-                                    
-                                    <div class="form-group">
-                                        <label for="{{ provider_form.provider.id_for_label }}" class="form-label">Provider</label>
-                                        {{ provider_form.provider }}
-                                    </div>
-                                    
-                                    <div class="provider-details">
-                                        <div class="form-group half">
-                                            <label for="{{ provider_form.price.id_for_label }}" class="form-label">Price ($)</label>
-                                            {{ provider_form.price }}
-                                        </div>
-                                        <div class="form-group half">
-                                            <label for="{{ provider_form.stock.id_for_label }}" class="form-label">Stock</label>
-                                            {{ provider_form.stock }}
-                                        </div>
-                                    </div>
-                                    
-                                    {{ provider_form.DELETE }}
-                                </div>
-                            </div>
-                        {% endfor %}
+                        {{ supplier_formset.management_form }}
+                        <!-- No default provider forms -->
                     </div>
                 </div>
                 
@@ -154,57 +129,77 @@
             </button>
         </div>
     </template>
-    
     <template id="provider-template">
         <div class="provider-card" data-index="__PREFIX__">
             <div class="provider-header">
-                <span>Provider __COUNTER__</span>
+                <span>Provider</span>
                 <button type="button" class="remove-provider">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             
             <div class="provider-form">
-                {{ provider_formset.empty_form.id }}
+                <input type="hidden" name="providers-__PREFIX__-id" id="id_providers-__PREFIX__-id">
                 
                 <div class="form-group">
-                    <label for="{{ provider_formset.empty_form.provider.id_for_label }}" class="form-label">Provider</label>
-                    {{ provider_formset.empty_form.provider }}
+                    <label for="id_providers-__PREFIX__-supplier" class="form-label">Supplier</label>
+                    <select name="providers-__PREFIX__-supplier" id="id_providers-__PREFIX__-supplier" class="form-control">
+                        {% for supplier in suppliers %}
+                            <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 
                 <div class="provider-details">
                     <div class="form-group half">
-                        <label for="{{ provider_formset.empty_form.price.id_for_label }}" class="form-label">Price ($)</label>
-                        {{ provider_formset.empty_form.price }}
+                        <label for="id_providers-__PREFIX__-price" class="form-label">Price ($)</label>
+                        <input type="number" name="providers-__PREFIX__-price" id="id_providers-__PREFIX__-price" class="form-control">
                     </div>
                     <div class="form-group half">
-                        <label for="{{ provider_formset.empty_form.stock.id_for_label }}" class="form-label">Stock</label>
-                        {{ provider_formset.empty_form.stock }}
+                        <label for="id_providers-__PREFIX__-currency" class="form-label">Currency</label>
+                        <select name="providers-__PREFIX__-currency" id="id_providers-__PREFIX__-currency" class="form-control">
+                            <option value="USD">USD</option>
+                            <option value="MXN">MXN</option>
+                            <option value="EUR">EUR</option>
+                        </select>
                     </div>
                 </div>
                 
-                {{ provider_formset.empty_form.DELETE }}
+                <input type="hidden" name="providers-__PREFIX__-DELETE" id="id_providers-__PREFIX__-DELETE">
             </div>
         </div>
     </template>
-    
 
     <div class="Navigation">
-        <label title="home" for="home" class="label">
-            <input id="home" name="page" type="radio" checked="" />
-            <i class="fi fi-rr-marketplace-store"></i>
-        </label>
         <label title="cart" for="cart" class="label">
-            <input id="cart" name="page" type="radio" />
-            <i class="fi fi-rr-shopping-cart"></i>
+            <a href="/adminuser/adminpanel">
+            <input id="cart" name="page" type="radio"  />
+            <i class="fi fi-rr-dashboard-monitor"></i>
+        </a>
+        </label>
+        <label title="store" for="store" class="label">
+            <a href="/adminuser/adminproducts">
+            <input id="store" name="page" type="radio" checked="" />
+            <i class="fi fi-rr-boxes"></i>
+        </a>
+        </label>
+        <label title="home" for="home" class="label">
+            <a href="/adminuser/adminemployee">
+            <input id="home" name="page" type="radio" />
+            <i class="fi fi-rr-employee-man-alt"></i>
+        </a>
         </label>
         <label title="favorite" for="favorite" class="label">
+            <a href="/adminuser/adminsupplier">
             <input id="favorite" name="page" type="radio" />
-            <i class="fi fi-rr-heart"></i>
+            <i class="fi fi-rr-store-alt"></i>
+        </a>
         </label>
         <label title="notifications" for="notifications" class="label">
+            <a href="/adminuser/admincategories">
             <input id="notifications" name="page" type="radio" />
-            <i class="fi fi-rr-bell-notification-social-media"></i>
+            <i class="fi fi-rr-objects-column"></i>
+            </a>
         </label>
     </div>
 
