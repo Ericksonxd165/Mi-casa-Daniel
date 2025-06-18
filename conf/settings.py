@@ -16,10 +16,10 @@ BASE_DOMAIN = os.environ.get('BASE_DOMAIN', 'http://localhost:8000')  # Reemplaz
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # No ejecutar con debug en producción
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # Permitir solo tu dominio o el de Render
-ALLOWED_HOSTS = [os.environ.get('BASE_DOMAIN', 'localhost'), 'desploy-7.onrender.com']
+ALLOWED_HOSTS = [os.environ.get('BASE_DOMAIN', 'desploy-7.onrender.com'), 'localhost']
 
 # Application definition
 INSTALLED_APPS = [
