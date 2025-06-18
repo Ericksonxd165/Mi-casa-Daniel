@@ -8,4 +8,4 @@ Pillow # Si estás trabajando con imágenes
 #setuptools>=60.0.0
 #poetry
 # Agrega aquí otras dependencias de tu proyecto
-
+gunicorn 
