@@ -106,7 +106,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'home/static'),  # Static files de la app 'home'
     os.path.join(BASE_DIR, 'shop/static'),  # Static files de la app 'shop'
-    os.path.join(BASE_DIR, 'cart/static'),  # Static files de la app 'cart'
     # Agregar otras rutas de apps si es necesario
 ]
 
