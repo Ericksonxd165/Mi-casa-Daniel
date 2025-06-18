@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'adminuser.apps.AdminuserConfig',
-    'home.apps.HomeConfig',]
+    'home.apps.HomeConfig',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
