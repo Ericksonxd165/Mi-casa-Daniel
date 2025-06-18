@@ -9,15 +9,14 @@ pip install -r requirements.txt
 
 # Apply database migrations
 echo "Applying database migrations..."
+echo "Migrating core Django apps..."
 python manage.py migrate auth
 python manage.py migrate contenttypes
 python manage.py migrate sessions
+python manage.py migrate admin # Django admin app
 
-# Project specific apps - ensure this order is correct for your app dependencies
-python manage.py migrate adminuser # adminuser might have users, good to have it early if other apps depend on its models
-python manage.py migrate shop
-python manage.py migrate cart
-python manage.py migrate home
+echo "Migrating project apps..."
+python manage.py migrate # General migrate for all other apps
 
 # Collect static files
 echo "Collecting static files..."
