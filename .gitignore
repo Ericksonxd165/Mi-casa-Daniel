@@ -176,6 +176,3 @@ cython_debug/
 
 postgres_data/
 
-
-
-migrations/
