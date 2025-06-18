@@ -18,7 +18,6 @@ python manage.py migrate adminuser # adminuser might have users, good to have it
 python manage.py migrate shop
 python manage.py migrate cart
 python manage.py migrate home
-python manage.py migrate orders
 
 # Collect static files
 echo "Collecting static files..."
